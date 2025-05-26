@@ -1,0 +1,1279 @@
+/* Basic Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #3498db; /* A nice blue for accents */
+    --secondary-color: #2c3e50; /* Darker blue for text/background */
+
+    /* YELLOW GRADIENT COLORS FOR BANNER */
+    --banner-dark-yellow: #FFBF00; /* A warm, amber-like yellow */
+    --banner-light-yellow: #ffc400; /* A soft, creamy yellow */
+
+    --text-color: #333; /* Default text color */
+    --light-bg: #f8f8f8;
+    --dark-bg: #e2e2e2;
+    --white: #fff;
+    --border-color: #ddd;
+    --hover-color: #2980b9; /* Darker primary for hover */
+    --star-color: #f39c12; /* Golden color for stars */
+    --timeline-line: #b0b0b0; /* Color for the horizontal line */
+    --black-text: #000000; /* Explicit black color for banner text */
+
+    --font-family-sans: 'Helvetica Neue', Arial, sans-serif;
+    --font-family-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    --font-family-headings: 'Inter', Arial, sans-serif;
+    --max-width: 1200px; /* This is the key for consistent content width */
+}
+
+body {
+    font-family: var(--font-family-body);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: white; /* Explicitly set body background to white */
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px; /* Consistent padding for all containers */
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-family-headings);
+    color: var(--secondary-color);
+    margin-bottom: 0.8em;
+}
+
+h1 { font-size: 2.8em; }
+h2 { font-size: 2.2em; }
+h3 { font-size: 1.8em; }
+h4 { font-size: 1.2em; margin-bottom: 0.5em; }
+
+p {
+    margin-bottom: 1em;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--hover-color);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+}
+
+.primary-btn:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+/* Global Transitions for smooth animations */
+button, a, img {
+    transition: all 0.3s ease;
+}
+
+
+/* Header & Navigation */
+header {
+    background-color: var(--white);
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Keep padding for header content */
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 30px;
+}
+
+.nav-links a {
+    color: var(--secondary-color);
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.8em;
+    cursor: pointer;
+    color: var(--secondary-color);
+}
+
+/* Hero Section (Three-Column Top Banner Style) */
+.hero.hero-banner-style {
+    background: radial-gradient(circle at center, var(--banner-dark-yellow) 0%, var(--banner-light-yellow) 50%);
+    padding: 0; /* Changed to 0 for top/bottom padding */
+    margin: 0; /* Ensures no default margin */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px; /* Fixed height to match previous visual size without internal padding */
+    min-height: 400px; /* Keep min-height for responsiveness */
+    overflow: hidden;
+    border-bottom: 2px solid var(--black-text); /* Black line at the bottom */
+}
+
+.hero-banner-style .container {
+    padding: 0 20px; /* Keep horizontal padding, remove vertical */
+    height: 100%; /* Make container fill the banner height */
+    display: flex; /* Ensure flex behavior for content-wrapper */
+    align-items: center; /* Vertically center content-wrapper within container */
+}
+
+.hero-banner-style .hero-content-wrapper.three-columns {
+    display: flex;
+    justify-content: center; /* Horizontally align columns */
+    align-items: center; /* Vertically align content of columns */
+    width: 100%;
+    height: 100%; /* Make wrapper fill container height */
+    padding: 0;
+    margin-bottom: 0;
+    gap: 0; /* Removed space between columns */
+}
+
+.hero-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically align content within the column */
+    align-items: center;
+    padding: 0;
+    min-height: auto; /* Let content dictate height, but will stretch with parent */
+    height: 100%; /* Make column fill its portion of wrapper height */
+}
+
+/* Specific flex basis for each column in the top banner */
+.hero-column.col-1 {
+    flex: 0 0 25%; /* First column 25% */
+}
+.hero-column.col-2 {
+    flex: 0 0 25%; /* Second column 25% */
+}
+.hero-column.col-3 {
+    flex: 0 0 50%; /* Third column 50% */
+}
+
+
+/* Base style for all hero images wrappers */
+.hero-image-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: contain;
+}
+
+/* Specific styling for the arrow image (col-1) */
+.arrow-image-wrapper {
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+.arrow-image-wrapper img {
+    object-fit: contain;
+}
+
+/* Profile Image Wrapper - Square border and shadow */
+.profile-image-wrapper {
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    border-radius: 0; /* Square border */
+    padding: 0;
+    background-color: transparent;
+    border: 5px solid var(--white); /* Added 5px white border */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Added drop shadow */
+    flex-shrink: 0;
+    box-sizing: border-box; /* Ensures padding/border are included in size */
+    aspect-ratio: 1 / 1; /* Keep aspect ratio if image is square */
+    overflow: hidden; /* Ensures image stays within bounds */
+}
+.profile-image-wrapper img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 0; /* Ensure the image itself is also square */
+}
+
+
+/* Re-styling for content within the third column */
+.hero-text-content {
+    color: var(--black-text);
+    text-align: center;
+    margin-top: 0;
+    width: 100%;
+}
+
+.hero-text-content h1 {
+    font-size: 2.8em;
+    color: var(--black-text);
+    margin-bottom: 5px;
+    line-height: 1.1;
+}
+
+.hero-text-content .tagline {
+    font-size: 1.6em; /* This will be the size for "Creative Lead | Multidisciplinary Designer" */
+    font-weight: bold;
+    color: var(--black-text);
+    margin-bottom: 0;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    line-height: 1.2; /* Adjust line height if lines are too close */
+}
+
+/* Add this new rule for the sub-tagline */
+.hero-text-content .tagline .sub-tagline {
+    display: block; /* Forces it to a new line */
+    font-size: 0.65em; /* Smaller relative to its parent (.tagline) */
+    font-weight: normal; /* Make it less bold than the main tagline */
+    margin-top: 5px; /* Add a little space above it */
+    opacity: 0.9; /* Slightly less prominent */
+}
+
+
+.hero-text-content .experience-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--black-text);
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Separator line between tagline and experience text */
+.separator-line {
+    width: 40px;
+    height: 2px;
+    background-color: var(--white);
+    margin: 5px auto;
+}
+
+/* Software Icons - No background or reflection */
+.software-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.software-icons img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.software-icons img:hover {
+    transform: translateY(-5px);
+}
+
+
+/* About Section - New Two-Column Layout */
+#about { /* Use ID selector for specificity if needed */
+    padding: 0; /* No top/bottom padding for the section */
+    margin-top: 0; /* Set margin-top to 0 for no space from top banner */
+    background-color: var(--white); /* Default background for the section */
+    text-align: center; /* Center the container inside */
+}
+
+.about-content-wrapper.two-columns {
+    display: flex;
+    justify-content: center; /* Center columns horizontally */
+    align-items: center; /* Align columns vertically */
+    width: 100%;
+    padding: 0; /* Remove existing padding, let columns define it */
+    gap: 0; /* Remove gap if not desired between columns */
+    min-height: 400px; /* Match height of top banner visually */
+    border-radius: 0; /* Removed border-radius */
+    overflow: hidden; /* Contains children within bounds */
+    box-shadow: none; /* No drop shadow */
+    /* background-color is handled by each column now */
+}
+
+.about-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Padding inside each column */
+    height: 100%; /* Take full height of parent flex container */
+    box-sizing: border-box; /* Include padding in width/height */
+}
+
+.about-column.col-1 {
+    flex: 0 0 20%; /* First column 20% width */
+    background-color: transparent; /* Transparent background */
+}
+
+.about-column.col-2 {
+    flex: 0 0 80%; /* Second column 80% width */
+    background-color: transparent; /* No specific background, takes parent's (white) */
+}
+
+.about-image-wrapper {
+    width: 100%; /* Image wrapper fills its column */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-image-wrapper img {
+    max-width: 100%; /* Image responsive within its wrapper */
+    max-height: 100%;
+    object-fit: contain; /* Ensure image fits without cropping */
+}
+
+/* About Intro - The text content box */
+.about-intro {
+    width: 100%; /* Fills 80% column */
+    font-size: 1.1em;
+    line-height: 1.6;
+    text-align: left; /* Text left-aligned */
+    padding: 0; /* Remove padding, already on .about-column */
+    background-color: transparent; /* Remove background, already on .about-column */
+    border-radius: 0; /* Remove rounded corners */
+    box-shadow: none; /* Remove shadow */
+    color: var(--text-color); /* Ensure text is readable on white/light background */
+    margin: 0; /* Remove auto margins */
+}
+
+.about-intro h2 { /* If you add an h2, style it here */
+    color: var(--secondary-color);
+    text-shadow: none;
+}
+
+.about-intro p {
+    color: var(--text-color);
+    text-shadow: none;
+    text-indent: 0; /* Ensure no text indent */
+    margin-bottom: 0; /* Remove bottom margin if it's the only paragraph */
+}
+
+/* Scroll Down Arrow Styling */
+#scroll-down-arrow {
+    position: absolute; /* Position relative to its parent (body) or nearest positioned ancestor */
+    bottom: 20px; /* Distance from the bottom of the viewport */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5em;
+    color: var(--primary-color);
+    z-index: 999;
+    cursor: pointer;
+    animation: flash 1.5s infinite alternate; /* Flash animation */
+    transition: opacity 0.3s ease-out; /* Smooth fade out */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Keyframes for flashing animation */
+@keyframes flash {
+    0% { opacity: 0.2; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 1; transform: translateX(-50%) translateY(5px); }
+    100% { opacity: 0.2; transform: translateX(-50%) translateY(0); }
+}
+
+/* When the arrow should be hidden (via JS, by adding 'hidden' class) */
+#scroll-down-arrow.hidden {
+    opacity: 0;
+    pointer-events: none; /* Make it unclickable when hidden */
+}
+
+
+/* --- Timeline Section Styling (Work Experience & Education) --- */
+.timeline-section {
+    padding: 80px 0; /* Consistent vertical padding for sections */
+    background-color: white; /* Consistent white background */
+    text-align: center;
+    border-radius: 10px; /* Consistent rounded corners */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Keep subtle shadow for the section */
+    margin-top: 80px; /* Consistent margin from the section above */
+    max-width: var(--max-width); /* Ensures it follows the main content width */
+    margin-left: auto; /* Center it */
+    margin-right: auto; /* Center it */
+    overflow: hidden; /* Contains any overflowing elements like the timeline itself */
+}
+
+.timeline-section .container {
+    /* Uses the global .container padding */
+}
+
+.timeline-section h2 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 3.5rem;
+    color: var(--secondary-color);
+}
+
+.timeline {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 80px; /* Keep horizontal padding for internal timeline elements */
+    padding-right: 80px; /* Keep horizontal padding for internal timeline elements */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    width: 100%; /* Make it fill its parent container */
+    margin: 0 auto;
+    min-height: 200px;
+    box-sizing: content-box;
+}
+
+/* Hide scrollbar */
+.timeline::-webkit-scrollbar {
+    display: none;
+}
+.timeline {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Central horizontal line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(to right, var(--primary-color), var(--hover-color), #2b6cb0);
+    transform: translateY(-50%);
+    z-index: 1;
+    border-radius: 3px;
+}
+
+/* Individual timeline item */
+.timeline-item {
+    flex: 0 0 300px;
+    position: relative;
+    text-align: center;
+    padding: 0;
+    z-index: 2;
+    scroll-snap-align: center;
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-height: 180px;
+
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effects for the item itself */
+.timeline-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Content block for each timeline item */
+.timeline-content {
+    background-color: white; /* Consistent white background */
+    padding: 1.8rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Alternating content position (snake effect) */
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-bottom: 3rem;
+    margin-top: -1rem;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    margin-top: 3rem;
+    margin-bottom: -1rem;
+}
+
+/* Date styling - now inside the content box */
+.timeline-date {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--white);
+    background-color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    align-self: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.timeline-item:hover .timeline-date {
+    background-color: var(--hover-color);
+}
+
+/* Hover effects for the content background */
+.timeline-item:hover .timeline-content {
+    background-color: #e2f0ff;
+}
+
+.timeline-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: var(--secondary-color);
+}
+
+.timeline-content p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-color);
+}
+/* --- END Timeline Section Styling --- */
+
+
+/* Skills Section Styling (New wrapper for content) */
+.skills-section {
+    padding: 80px 0; /* Consistent vertical padding for sections */
+    background-color: var(--white); /* The section itself is white */
+    margin-top: 80px; /* Consistent margin from the section above */
+    text-align: center;
+}
+
+/* New wrapper to hold the skills content with background and shadow */
+.skills-content-wrapper {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 40px; /* Internal padding for the content */
+    max-width: var(--max-width); /* Match container max-width */
+    margin: 0 auto; /* Center it within its parent section */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.skills-section h3 {
+    margin-bottom: 30px;
+    color: var(--secondary-color);
+    position: relative;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.skills-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* Grid for 2 columns on larger screens, now explicitly centering the grid itself */
+.skills-rating-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 30px;
+    margin-bottom: 30px;
+    max-width: 800px; /* Constrain grid width if needed within wrapper */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: var(--light-bg); /* Keep light-bg for skill items if desired */
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.skill-item .skill-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.skill-item span {
+    font-weight: bold;
+    color: var(--secondary-color);
+    font-size: 1.1em;
+    margin-right: 25px;
+    white-space: nowrap;
+}
+
+.stars {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.stars .fas.fa-star {
+    color: var(--star-color);
+    font-size: 1.2em;
+}
+
+.stars .far.fa-star {
+    color: var(--border-color);
+    font-size: 1.2em;
+}
+
+
+/* New styles for platforms and languages section */
+.platforms-languages-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 800px; /* Constrain if needed within wrapper */
+    margin: 30px auto 0 auto;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+}
+
+.skill-platforms, .skill-languages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+}
+
+.skill-platforms h4, .skill-languages h4 {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.icon-list-horizontal {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.platform-language-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.icon-item span {
+    font-size: 0.9em;
+    color: var(--secondary-color);
+    font-weight: normal;
+}
+
+
+/* Portfolio Section */
+.portfolio {
+    padding: 80px 0;
+    background-color: var(--white);
+    text-align: center;
+    margin-top: 80px; /* Consistent margin from the section above */
+}
+
+.portfolio-item {
+    background-color: var(--light-bg); /* Keep light-bg for portfolio items if desired */
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 60px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    text-align: left;
+}
+
+.portfolio-item:last-child {
+    margin-bottom: 0;
+}
+
+.portfolio-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.project-description {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-track img, .carousel-track iframe {
+    width: 100%;
+    flex-shrink: 0;
+    display: block;
+    height: auto;
+    object-fit: contain;
+    max-height: 500px;
+    background-color: #000;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: var(--white);
+    border: none;
+    padding: 15px 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+    z-index: 10;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    gap: 8px;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: var(--primary-color);
+}
+
+.project-tags {
+    font-style: italic;
+    color: #777;
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+
+/* Contact Section */
+.contact {
+    padding: 80px 0;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    text-align: center;
+    margin-top: 80px; /* Consistent margin from the section above */
+}
+
+.contact h2 {
+    color: var(--white);
+}
+
+.contact p {
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+#contact-form {
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    color: var(--text-color);
+    background-color: var(--light-bg);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+#contact-form button {
+    width: auto;
+    min-width: 150px;
+    padding: 14px 30px;
+    font-size: 1.1em;
+}
+
+#form-status {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+/* Social Links */
+.social-links {
+    margin-top: 40px;
+}
+
+.social-links a {
+    font-size: 2.5em;
+    margin: 0 15px;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px) scale(1.1);
+    color: var(--primary-color);
+}
+
+.contact-info {
+    margin-top: 15px;
+    font-size: 1.1em;
+    font-weight: 300;
+}
+
+/* Footer */
+footer {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 25px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* --- Responsive Design (Media Queries) --- */
+
+@media (max-width: 768px) {
+    header .container {
+        padding: 0 15px;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--white);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 0;
+        text-align: center;
+        border-bottom: 1px solid var(--light-bg);
+    }
+
+    .nav-links li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 15px 0;
+        color: var(--secondary-color);
+    }
+
+    .nav-links a::after {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Hero Banner Mobile Adjustments */
+    .hero.hero-banner-style {
+        padding: 0; /* No padding on mobile */
+        min-height: auto; /* Allow height to adjust */
+        height: auto; /* Set height to auto */
+        border-bottom: 2px solid var(--black-text);
+    }
+    .hero-banner-style .container {
+        padding: 0 15px; /* Consistent mobile padding for the top banner container */
+        height: auto; /* Allow container to adjust height */
+    }
+    .hero-banner-style .hero-content-wrapper.three-columns {
+        flex-direction: column; /* Stack columns on mobile */
+        padding: 0;
+        gap: 0;
+        height: auto; /* Allow wrapper to adjust height */
+    }
+
+    .hero-column {
+        width: 100%; /* Take full width when stacked */
+        max-width: 300px; /* Constrain overall width for readability */
+        padding: 0;
+        justify-content: center; /* Revert to center on mobile for overall column content */
+        min-height: auto; /* Remove fixed min-height for mobile */
+        height: auto; /* Let content dictate height */
+    }
+    /* Mobile column sizing for stacked layout */
+    .hero-column.col-1,
+    .hero-column.col-2,
+    .hero-column.col-3 {
+        flex: 1 1 auto; /* Allow items to grow and shrink, but base width is auto */
+    }
+
+
+    /* Profile Image Wrapper - Mobile */
+    .profile-image-wrapper {
+        width: auto;
+        height: auto;
+        max-width: 150px; /* Reintroduce max-width for mobile */
+        max-height: 150px; /* Reintroduce max-height for mobile */
+        padding: 5px;
+        aspect-ratio: auto;
+        border: 5px solid var(--white); /* Keep border */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Keep shadow */
+        border-radius: 0; /* Ensure square on mobile too */
+    }
+    /* Arrow Image Wrapper - Mobile */
+    .arrow-image-wrapper {
+        width: auto;
+        height: auto;
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+
+    .hero-text-content h1 {
+        font-size: 2.2em;
+    }
+    .hero-text-content .tagline {
+        font-size: 1.2em;
+    }
+    .hero-text-content .tagline .sub-tagline {
+        font-size: 0.6em; /* Adjust sub-tagline size for mobile */
+        margin-top: 3px;
+    }
+    .software-icons {
+        justify-content: center;
+        gap: 10px;
+    }
+    .software-icons img {
+        width: 35px;
+        height: 35px;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    /* About Section Mobile Adjustments */
+    #about {
+        padding: 0; /* No top/bottom padding on mobile */
+        margin-top: 0; /* No margin on mobile */
+        min-height: auto; /* Allow height to adjust to content */
+        height: auto; /* Remove fixed height on mobile */
+    }
+    .about-content-wrapper.two-columns {
+        flex-direction: column; /* Stack columns on mobile */
+        min-height: auto; /* Allow height to adjust to content */
+        box-shadow: none; /* Removed outer shadow for mobile */
+        border-radius: 0; /* Removed border-radius on mobile for full width look */
+    }
+    .about-column {
+        flex: 1 1 100%; /* Columns take full width */
+        padding: 15px; /* Adjust padding */
+    }
+    .about-column.col-1 {
+        order: 2; /* Put image at the bottom on mobile */
+        background-color: transparent; /* Ensure transparent on mobile too */
+    }
+    .about-column.col-2 {
+        order: 1; /* Put text at the top on mobile */
+    }
+    .about-intro {
+        font-size: 0.95em;
+        text-align: center; /* Center text on mobile */
+    }
+
+
+    /* Timeline Mobile Adjustments */
+    .timeline-section {
+        margin-top: 40px; /* Adjusted mobile margin */
+        padding: 2rem 0;
+    }
+
+    .timeline-section h2 {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .timeline {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        padding: 0 1rem;
+        overflow-x: hidden;
+        padding-top: 0;
+        padding-bottom: 0;
+        min-height: auto;
+        min-width: auto;
+        box-sizing: border-box;
+    }
+
+    /* Vertical line for mobile */
+    .timeline::before {
+        left: 20px;
+        top: 0;
+        width: 6px;
+        height: 100%;
+        transform: none;
+        width: auto;
+    }
+
+    .timeline-item {
+        width: 100%;
+        max-width: none;
+        margin: 1.5rem 0;
+        padding: 0 0 0 50px;
+        flex: none;
+        align-items: flex-start;
+        min-height: auto;
+    }
+
+    /* Reset alternating margins for vertical layout */
+    .timeline-item:nth-child(odd) .timeline-content,
+    .timeline-item:nth-child(even) .timeline-content {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    /* Date styling for mobile (now inside content box) */
+    .timeline-date {
+        position: static;
+        transform: none;
+        margin-left: 0;
+        margin-bottom: 0.75rem;
+        align-self: flex-start;
+    }
+
+    .timeline-content {
+        width: calc(100% - 1.5rem);
+        margin-top: 0;
+        align-items: flex-start;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.25rem;
+    }
+    .timeline-content p {
+        font-size: 0.875rem;
+    }
+
+
+    /* Skills Section Mobile Adjustments */
+    .skills-section {
+        margin-top: 40px; /* Adjust mobile margin */
+        padding: 40px 0; /* Adjust padding for mobile */
+    }
+    .skills-content-wrapper {
+        padding: 20px; /* Adjust internal padding for mobile */
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08); /* Lighter shadow for mobile */
+        border-radius: 0; /* Remove border-radius on mobile for full width look */
+    }
+    .skills-rating-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-item {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .skill-item span {
+        margin-right: 10px;
+    }
+
+    .skill-platforms, .skill-languages {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+    .platforms-languages-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .icon-list-horizontal {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Smaller mobile screens */
+@media (max-width: 480px) {
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.6em; }
+    h3 { font-size: 1.3em; }
+
+    .hero.hero-banner-style {
+        min-height: 600px;
+        padding-top: 60px;
+    }
+    .hero-image-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+    .arrow-image-wrapper {
+        width: 60px;
+    }
+    .profile-image-wrapper {
+        width: 100px; /* Keep consistent with desktop if preferred */
+        height: 100px; /* Keep consistent with desktop if preferred */
+    }
+    .hero-text-content h1 {
+        font-size: 1.8em;
+    }
+    .hero-text-content .tagline {
+        font-size: 1.1em;
+    }
+    .hero-text-content .tagline .sub-tagline {
+        font-size: 0.55em; /* Further adjust sub-tagline for very small screens */
+    }
+    .software-icons {
+        gap: 10px;
+    }
+    .software-icons img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .about-intro {
+        padding: 30px 20px 40px 20px;
+    }
+
+    .social-links a {
+        font-size: 2em;
+        margin: 0 10px;
+    }
+}
