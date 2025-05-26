@@ -120,22 +120,14 @@ header .container {
     padding: 0 20px; /* Keep padding for header content */
 }
 
-.logo {
-    display: flex; /* Use flexbox for icon and text alignment */
-    align-items: flex-end; /* Aligns items to the bottom of the cross axis */
-    font-size: 1.8em; /* Base font size for the whole logo block */
-    /* Removed font-weight: bold; from here so span can control its own weight */
-    color: var(--secondary-color);
-}
-
 .logo img {
-    height: 54px; /* Set logo image height to 54px */
+    height: 36px; /* Set logo image height to 54px */
     margin-right: 10px; /* Space between logo and text */
 }
 
 .logo span {
     font-size: 0.9em; /* Slightly smaller than the base .logo font size */
-    font-weight: normal; /* Set to normal to ensure it's not bold */
+    font-weight: bold; /* Changed to bold */
     color: var(--secondary-color); /* Keep the same color */
 }
 
@@ -519,7 +511,7 @@ header .container {
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background-color: var(--primary-color); /* Match the underline color */
+    background-color: var(--primary-color);
     border-radius: 2px;
 }
 
