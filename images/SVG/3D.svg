@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 855.48 855.48">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #f88f9b;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke: #4c4372;
+        stroke-width: 25px;
+      }
+
+      .cls-1, .cls-3 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-2, .cls-4 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        fill: #ebc088;
+        stroke: #ebc088;
+        stroke-width: 10px;
+      }
+
+      .cls-3 {
+        fill: #7babf1;
+      }
+    </style>
+  </defs>
+  <circle class="cls-4" cx="427.74" cy="427.74" r="422.74"/>
+  <line class="cls-1" x1="427.09" y1="34.02" x2="427.09" y2="686.16"/>
+  <line class="cls-1" x1="96.17" y1="360.09" x2="749.88" y2="360.09"/>
+  <polyline class="cls-2" points="643.02 233.98 643.02 486.19 427.09 612.3 212.45 482.66 212.45 230.44"/>
+  <line class="cls-1" x1="427.09" y1="360.09" x2="427.09" y2="612.3"/>
+  <polygon class="cls-1" points="427.09 107.87 212.45 230.44 427.09 360.09 643.02 233.98 427.09 107.87"/>
+  <ellipse class="cls-3" cx="427.74" cy="763.56" rx="173.08" ry="37.81"/>
+</svg>
