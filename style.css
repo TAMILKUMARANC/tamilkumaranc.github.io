@@ -37,10 +37,18 @@ body {
     overflow-x: hidden;
 }
 
+/* Ensure consistent container alignment */
 .container {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 20px; /* Consistent padding for all containers */
+    padding: 0 20px;
+}
+
+/* Example: Remove overrides in specific sections */
+.about-section .container,
+.skills-section .container,
+.timeline-section .container {
+    padding: 0 20px; /* Ensure consistent padding */
 }
 
 h1, h2, h3, h4 {
@@ -113,10 +121,24 @@ header .container {
 }
 
 .logo {
-    font-size: 1.8em;
-    font-weight: bold;
+    display: flex; /* Use flexbox for icon and text alignment */
+    align-items: flex-end; /* Aligns items to the bottom of the cross axis */
+    font-size: 1.8em; /* Base font size for the whole logo block */
+    /* Removed font-weight: bold; from here so span can control its own weight */
     color: var(--secondary-color);
 }
+
+.logo img {
+    height: 54px; /* Set logo image height to 54px */
+    margin-right: 10px; /* Space between logo and text */
+}
+
+.logo span {
+    font-size: 0.9em; /* Slightly smaller than the base .logo font size */
+    font-weight: normal; /* Set to normal to ensure it's not bold */
+    color: var(--secondary-color); /* Keep the same color */
+}
+
 
 .nav-links {
     list-style: none;
@@ -456,27 +478,49 @@ header .container {
 
 /* --- Timeline Section Styling (Work Experience & Education) --- */
 .timeline-section {
-    padding: 80px 0;
-    background-color: white;
+    padding: 80px 0; /* Matches Skills Section */
+    margin-top: 80px; /* Matches Skills Section */
+    background-color: transparent; /* No background here, moved to wrapper */
     text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    margin-top: 80px;
-    max-width: var(--max-width);
+    border-radius: 0; /* No border-radius here */
+    box-shadow: none; /* No shadow here */
+    max-width: none; /* Let container control width */
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
 }
 
-.timeline-section .container {
-    /* Uses the global .container padding */
+/* New wrapper to hold the timeline content with background and shadow */
+.timeline-content-wrapper {
+    background-color: rgba(255, 255, 255, 0.9); /* White background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 80px; /* Internal padding for the content */
+    margin: 0 auto; /* Center within .container */
+    box-sizing: border-box;
+    width: 100%; /* Take full width of parent .container */
 }
 
+
 .timeline-section h2 {
-    font-size: 2.2em;
-    font-weight: 700;
-    margin-bottom: 3.5rem;
-    color: var(--secondary-color);
+    font-size: 1.8em; /* Match the font size of Skills Section h3 */
+    margin-bottom: 30px; /* Match the spacing below the heading */
+    color: var(--secondary-color); /* Use the same color as Skills Section */
+    position: relative;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.timeline-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color); /* Match the underline color */
+    border-radius: 2px;
 }
 
 .timeline {
@@ -486,8 +530,8 @@ header .container {
     position: relative;
     padding-top: 60px;
     padding-bottom: 60px;
-    padding-left: 80px;
-    padding-right: 80px;
+    padding-left: 0; /* Let timeline-content-wrapper handle horizontal padding */
+    padding-right: 0; /* Let timeline-content-wrapper handle horizontal padding */
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -623,8 +667,7 @@ header .container {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    /* max-width: 900px;  <-- REMOVED THIS LINE for full container width */
+    padding: 80px;
     margin: 0 auto; /* Keep this to ensure centering within its parent (.container) */
     box-sizing: border-box;
 }
@@ -652,28 +695,33 @@ header .container {
 /* Grid for 2 columns on larger screens, now explicitly centering the grid itself */
 .skills-rating-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px 30px;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 20px 50px; /* Space between rows and columns */
     margin-bottom: 30px;
-    max-width: 800px; /* Constrain grid width for better readability */
+    max-width: auto; /* Constrain grid width */
     margin-left: auto;
-    margin-right: auto; /* Center the grid within its wrapper */
+    margin-right: auto; /* Center the grid */
+    justify-content: center; /* Center the grid items */
 }
 
 .skill-item {
     display: flex;
     align-items: center;
-    justify-content: center; /* Changed from flex-start to center for better alignment */
+    justify-content: flex-start; /* Align icon and text to the left */
     background-color: var(--light-bg);
     padding: 10px 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 100%; /* Ensure the box takes full width of the grid column */
+    max-width: auto; /* Optional: Constrain the width of each box */
+    margin: 0 auto; /* Center the box itself */
+    
 }
 
 .skill-item .skill-icon {
     width: 30px;
     height: 30px;
-    margin-right: 15px;
+    margin-right: 15px; /* Space between icon and text */
     object-fit: contain;
     flex-shrink: 0;
 }
@@ -682,7 +730,6 @@ header .container {
     font-weight: bold;
     color: var(--secondary-color);
     font-size: 1.1em;
-    margin-right: 25px;
     white-space: nowrap;
 }
 
@@ -755,6 +802,27 @@ header .container {
     font-weight: normal;
 }
 
+/* Portfolio Section Heading (My Work) */
+.portfolio h2 {
+    font-size: 1.8em; /* Match the font size of Skills Section h3 */
+    margin-bottom: 30px; /* Match the spacing below the heading */
+    color: var(--secondary-color); /* Use the same color as Skills Section */
+    position: relative;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.portfolio h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
 
 /* Portfolio Section */
 .portfolio {
@@ -1128,26 +1196,42 @@ footer {
     /* Timeline Mobile Adjustments */
     .timeline-section {
         margin-top: 40px;
-        padding: 2rem 0;
+        padding: 40px 0; /* Adjust section padding on mobile */
     }
 
+    .timeline-content-wrapper {
+        padding: 20px; /* Reduce padding for mobile */
+        border-radius: 0; /* No rounded corners on mobile like skills-content-wrapper */
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08); /* Lighter shadow like skills-content-wrapper */
+    }
+
+    /* Timeline Section Heading (Education and Work Experience) */
     .timeline-section h2 {
-        font-size: 2rem;
-        margin-bottom: 2.5rem;
+        font-size: 1.8em; /* Match the font size of Skills Section h3 */
+        margin-bottom: 30px; /* Add spacing below the heading */
+        color: var(--secondary-color); /* Use the same color as Skills Section */
+        position: relative;
+        padding-bottom: 10px;
+        text-align: center;
     }
 
-    .timeline {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        padding: 0 1rem;
-        overflow-x: hidden;
-        padding-top: 0;
-        padding-bottom: 0;
-        min-height: auto;
-        min-width: auto;
-        box-sizing: border-box;
+    .timeline-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: var(--primary-color);
+        border-radius: 2px;
     }
+
+    /* Adjust the Timeline Box to Start Below the Heading */
+    .timeline {
+        margin-top: 0; /* No extra margin here, wrapper provides space */
+    }
+
 
     /* Vertical line for mobile */
     .timeline::before {
@@ -1163,7 +1247,7 @@ footer {
         width: 100%;
         max-width: none;
         margin: 1.5rem 0;
-        padding: 0 0 0 50px;
+        padding: 0 0 0 50px; /* This is the new padding for vertical timeline */
         flex: none;
         align-items: flex-start;
         min-height: auto;
@@ -1269,6 +1353,11 @@ footer {
     }
     .hero-text-content .tagline .sub-tagline {
         font-size: 0.5em;
+    }
+    .software-icons {
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 0;
     }
     .software-icons img {
         width: 30px;
