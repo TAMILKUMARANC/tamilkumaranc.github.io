@@ -1,23 +1,15 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Smooth scrolling for navigation links
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
-
-            // Calculate offset for sticky header
             const headerOffset = document.querySelector('header').offsetHeight;
             const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset - 20; // -20 for a little extra padding
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset - 20;
+            window.scrollTo({ top: offsetPosition, behavior: "smooth" });
 
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth"
-            });
-
-            // Close mobile menu if open
             const navLinks = document.querySelector('.nav-links');
             if (navLinks && navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
@@ -28,14 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
-
     if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', function() {
+        menuToggle.addEventListener('click', function () {
             navLinks.classList.toggle('active');
         });
     }
 
-    // Update copyright year
+    // Copyright year
     const currentYearSpan = document.getElementById('current-year');
     if (currentYearSpan) {
         currentYearSpan.textContent = new Date().getFullYear();
@@ -43,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Carousel functionality
     const carouselContainers = document.querySelectorAll('.carousel-container');
-
     carouselContainers.forEach(container => {
         const track = container.querySelector('.carousel-track');
         const slides = Array.from(track.children);
@@ -52,8 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const dotsContainer = container.querySelector('.carousel-dots');
 
         if (!track || slides.length === 0 || !nextButton || !prevButton || !dotsContainer) {
-            // console.warn("Skipping carousel initialization for a container due to missing elements or no slides.");
-            // Hide buttons and dots if carousel is not functional or has only one slide
             if (nextButton) nextButton.style.display = 'none';
             if (prevButton) prevButton.style.display = 'none';
             if (dotsContainer) dotsContainer.style.display = 'none';
@@ -61,9 +49,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         let currentIndex = 0;
-        let slideWidth = slides[0].getBoundingClientRect().width;
+        let slideWidth = 0;
 
-        // Create dots
+        const updateCarousel = () => {
+            // Recalculate slideWidth on update for responsiveness
+            if (slides.length > 0) {
+                slideWidth = slides[0].getBoundingClientRect().width;
+                track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+                const dots = Array.from(dotsContainer.children);
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+
+                // Ensure arrows are correctly hidden/shown if only one slide
+                if (slides.length <= 1) {
+                    nextButton.style.display = 'none';
+                    prevButton.style.display = 'none';
+                } else {
+                    nextButton.style.display = 'block';
+                    prevButton.style.display = 'block';
+                }
+            } else {
+                nextButton.style.display = 'none';
+                prevButton.style.display = 'none';
+                dotsContainer.style.display = 'none';
+            }
+        };
+
         if (slides.length > 1) {
             slides.forEach((_, index) => {
                 const dot = document.createElement('span');
@@ -73,23 +86,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 dotsContainer.appendChild(dot);
             });
         } else {
-            // Hide buttons and dots if only one slide
-            if (nextButton) nextButton.style.display = 'none';
-            if (prevButton) prevButton.style.display = 'none';
-            if (dotsContainer) dotsContainer.style.display = 'none';
+            nextButton.style.display = 'none';
+            prevButton.style.display = 'none';
+            dotsContainer.style.display = 'none';
         }
-
-        const dots = Array.from(dotsContainer.children);
-
-        const updateCarousel = () => {
-            slideWidth = slides[0].getBoundingClientRect().width; // Recalculate on update
-            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-
-            // Update active dot
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
-            });
-        };
 
         const moveToSlide = (index) => {
             currentIndex = index;
@@ -106,179 +106,151 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCarousel();
         });
 
-        // Recalculate slide width on window resize
+        // Initialize and listen for resize
         window.addEventListener('resize', updateCarousel);
-        // Initial update
-        updateCarousel();
+        // Use a small timeout to ensure images are loaded and dimensions are correct
+        setTimeout(updateCarousel, 100);
+        track.addEventListener('load', updateCarousel, true); // Listen for image loads within the track
     });
 
-    // Basic Contact Form Handling (Frontend Only)
+
+    // Contact form
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
-
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent actual form submission
-
+            e.preventDefault();
             if (formStatus) {
                 formStatus.textContent = 'Sending message...';
-                formStatus.style.color = '#3498db'; // Primary color for pending
+                formStatus.style.color = '#3498db';
             }
 
-            // Simulate network request
             setTimeout(() => {
                 const formData = new FormData(contactForm);
                 const name = formData.get('name');
                 const email = formData.get('email');
                 const subject = formData.get('subject');
                 const message = formData.get('message');
-
-                console.log('Form Submitted (for demonstration):', { name, email, subject, message });
+                console.log('Form Submitted:', { name, email, subject, message });
 
                 if (formStatus) {
                     formStatus.textContent = 'Message sent successfully! Thank you.';
                     formStatus.style.color = 'green';
                 }
-                contactForm.reset(); // Clear form fields
-            }, 2000); // Simulate 2-second delay
+                contactForm.reset();
+            }, 2000);
         });
     }
 
-    // Skill Star Rating Generation
+    // Skill stars
     document.querySelectorAll('.stars').forEach(starsContainer => {
-        const rating = parseInt(starsContainer.dataset.rating, 10); // Get rating from data-rating attribute
-        starsContainer.innerHTML = ''; // Clear existing content
-
-        const totalStars = 10; // Assuming a 1-10 rating system
-
-        for (let i = 1; i <= totalStars; i++) {
+        const rating = parseInt(starsContainer.dataset.rating, 10);
+        starsContainer.innerHTML = '';
+        for (let i = 1; i <= 10; i++) {
             const starIcon = document.createElement('i');
             if (i <= rating) {
-                starIcon.classList.add('fas', 'fa-star'); // Solid star for filled rating
+                starIcon.classList.add('fas', 'fa-star');
             } else {
-                starIcon.classList.add('far', 'fa-star'); // Outline star for empty rating
+                starIcon.classList.add('far', 'fa-star');
             }
             starsContainer.appendChild(starIcon);
         }
     });
 
-    // --- Scroll Down Arrow Logic ---
+    // Scroll down arrow logic
     const scrollDownArrow = document.getElementById('scroll-down-arrow');
-    const heroSection = document.getElementById('home'); 
+    const aboutSection = document.getElementById('about');
+    function checkAboutScrollArrowVisibility() {
+        if (!scrollDownArrow || !aboutSection) return;
 
-    function checkScrollArrowVisibility() {
-        if (!scrollDownArrow || !heroSection) return;
+        // Get the bottom position of the about section relative to the viewport
+        const aboutSectionBottom = aboutSection.getBoundingClientRect().bottom;
+        const windowHeight = window.innerHeight;
 
-        const heroHeight = heroSection.offsetHeight; 
-        const scrollPosition = window.scrollY;
-
-        if (scrollPosition > heroHeight - 50) { 
+        // If the bottom of the about section is within the viewport, hide the arrow.
+        // Or if the user has scrolled significantly past the top of the about section.
+        if (aboutSectionBottom < windowHeight || window.scrollY > (aboutSection.offsetTop + aboutSection.offsetHeight / 2)) {
             scrollDownArrow.classList.add('hidden');
         } else {
             scrollDownArrow.classList.remove('hidden');
         }
     }
 
-    // Function to update the arrow image based on screen width
-    function updateArrowImage() {
-        const arrowImage = document.querySelector('.arrow-image-wrapper img');
-        if (arrowImage) {
-            if (window.innerWidth <= 768) { // Mobile breakpoint
-                arrowImage.src = 'images/Arrow_Vertical.svg';
-                arrowImage.alt = 'Decorative Vertical Arrow Element';
-            } else {
-                arrowImage.src = 'images/arrow.svg';
-                arrowImage.alt = 'Decorative Arrow Element';
-            }
-        }
+
+    if (scrollDownArrow && aboutSection) {
+        scrollDownArrow.addEventListener('click', function () {
+            const headerOffset = document.querySelector('header')?.offsetHeight || 0;
+            const offsetPosition = aboutSection.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        });
     }
+    window.addEventListener('scroll', checkAboutScrollArrowVisibility);
+    checkAboutScrollArrowVisibility(); // Initial check on load
 
-    // Attach the scroll event listener
-    window.addEventListener('scroll', checkScrollArrowVisibility);
-    // Run the check once on page load to set initial visibility
-    checkScrollArrowVisibility();
-
-    // Run arrow image update on page load and resize
     updateArrowImage();
     window.addEventListener('resize', updateArrowImage);
-
-    // Call the setup function for timeline scroll arrows
     setupTimelineScrollArrows();
 });
 
-// Function to handle timeline scroll arrows visibility (defined outside DOMContentLoaded for clarity)
-function setupTimelineScrollArrows() {
-    // Select all timeline content wrappers
-    const timelineWrappers = document.querySelectorAll('.timeline-content-wrapper');
+function updateArrowImage() {
+    const arrowImage = document.querySelector('.arrow-image-wrapper img');
+    if (arrowImage) {
+        if (window.innerWidth <= 768) {
+            arrowImage.src = 'images/Arrow_Vertical.svg';
+            arrowImage.alt = 'Decorative Vertical Arrow Element';
+        } else {
+            arrowImage.src = 'images/arrow.svg';
+            arrowImage.alt = 'Decorative Arrow Element';
+        }
+    }
+}
 
+function setupTimelineScrollArrows() {
+    const timelineWrappers = document.querySelectorAll('.timeline-content-wrapper');
     timelineWrappers.forEach(wrapper => {
         const timeline = wrapper.querySelector('.timeline');
-        // If no timeline element found inside the wrapper, skip this wrapper
         if (!timeline) return;
 
-        // Create the left arrow element
         const leftArrow = document.createElement('div');
-        leftArrow.classList.add('timeline-scroll-arrow', 'left', 'hidden'); // Start hidden
-        leftArrow.innerHTML = '<i class="fas fa-chevron-left"></i>'; // Font Awesome left arrow icon
-        wrapper.appendChild(leftArrow); // Append to the wrapper
+        leftArrow.classList.add('timeline-scroll-arrow', 'left', 'hidden');
+        leftArrow.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        wrapper.appendChild(leftArrow);
 
-        // Create the right arrow element
         const rightArrow = document.createElement('div');
-        rightArrow.classList.add('timeline-scroll-arrow', 'right'); // Start visible (assuming content is scrollable initially)
-        rightArrow.innerHTML = '<i class="fas fa-chevron-right"></i>'; // Font Awesome right arrow icon
-        wrapper.appendChild(rightArrow); // Append to the wrapper
+        rightArrow.classList.add('timeline-scroll-arrow', 'right');
+        rightArrow.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        wrapper.appendChild(rightArrow);
 
-        // Function to update the visibility of the arrows based on scroll position
         const updateArrows = () => {
-            // Check if scroll is at the very beginning (left)
-            // If scrollLeft is 0 or less, hide the left arrow
-            if (timeline.scrollLeft <= 0) {
+            // Check if scrollWidth is greater than clientWidth to determine if scrolling is possible
+            if (timeline.scrollWidth <= timeline.clientWidth) {
+                leftArrow.classList.add('hidden');
+                rightArrow.classList.add('hidden');
+                return;
+            }
+
+            const scrollTolerance = 5; // A small buffer for floating point inaccuracies
+            if (timeline.scrollLeft <= scrollTolerance) {
                 leftArrow.classList.add('hidden');
             } else {
                 leftArrow.classList.remove('hidden');
             }
 
-            // Check if scroll is at the very end (right)
-            // Compare current scroll position + visible width with total scrollable width
-            // A small tolerance is added to account for potential floating point inaccuracies
-            const scrollTolerance = 1; // Small buffer for end detection
             if (timeline.scrollLeft + timeline.clientWidth >= timeline.scrollWidth - scrollTolerance) {
                 rightArrow.classList.add('hidden');
             } else {
                 rightArrow.classList.remove('hidden');
             }
-
-            // If the content is not scrollable at all (e.g., all items fit without scrolling), hide both arrows
-            if (timeline.scrollWidth <= timeline.clientWidth) {
-                leftArrow.classList.add('hidden');
-                rightArrow.classList.add('hidden');
-            }
         };
 
-        // Add a scroll event listener to the timeline element
         timeline.addEventListener('scroll', updateArrows);
-
-        // Add click listeners to the arrows for smooth scrolling
         leftArrow.addEventListener('click', () => {
-            timeline.scrollBy({
-                left: -300, // Scroll left by 300 pixels
-                behavior: 'smooth' // Smooth scrolling animation
-            });
+            timeline.scrollBy({ left: -300, behavior: 'smooth' });
         });
-
         rightArrow.addEventListener('click', () => {
-            timeline.scrollBy({
-                left: 300, // Scroll right by 300 pixels
-                behavior: 'smooth' // Smooth scrolling animation
-            });
+            timeline.scrollBy({ left: 300, behavior: 'smooth' });
         });
-
-        // Initial check for arrow visibility when the page loads
-        // No need for window.onload here as it's handled by DOMContentLoaded and initial call
-        // Re-check arrow visibility on window resize (important for responsive layouts)
         window.addEventListener('resize', updateArrows);
-
-        // Call updateArrows once immediately to set the initial state correctly
-        updateArrows();
+        updateArrows(); // Initial update
     });
 }
