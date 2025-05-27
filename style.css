@@ -478,8 +478,8 @@ header .container {
 .skills-section,
 .portfolio,
 .contact {
-    padding: 40px 0;
-    margin-top: 40px;
+    padding: 80px 0;
+    margin-top: 80px;
 }
 
 /* --- Standardized Section Heading Styles --- */
@@ -533,6 +533,7 @@ header .container {
     margin: 0 auto; /* Center within .container */
     box-sizing: border-box;
     width: 100%; /* Take full width of parent .container */
+    position: relative; /* Added for absolute positioning of the arrow */
 }
 
 
@@ -551,7 +552,8 @@ header .container {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    width: 100%;
+    /* Change width to min-width to allow it to expand beyond 100% */
+    min-width: 100%; /* This is the key change for the line to span */
     margin: 0 auto;
     min-height: 200px;
     box-sizing: content-box;
@@ -670,6 +672,39 @@ header .container {
 /* --- END Timeline Section Styling --- */
 
 
+/* Styles for interactive timeline scroll arrows */
+.timeline-scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5em;
+    color: var(--primary-color);
+    cursor: pointer;
+    z-index: 10;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    opacity: 1; /* Default visible */
+    pointer-events: auto; /* Allow clicks */
+}
+
+.timeline-scroll-arrow.left {
+    left: 20px; /* Position from the left edge */
+}
+
+.timeline-scroll-arrow.right {
+    right: 20px; /* Position from the right edge */
+}
+
+.timeline-scroll-arrow.hidden {
+    opacity: 0;
+    pointer-events: none; /* Disable clicks when hidden */
+}
+
+/* Optional: Add a subtle hover effect for arrows */
+.timeline-scroll-arrow:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+
 /* Skills Section Styling (New wrapper for content) */
 /* Removed padding and margin-top from .skills-section as it's now handled by the combined rule above */
 .skills-section {
@@ -704,12 +739,12 @@ header .container {
 
 .skill-item {
     display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Align everything to left */
+    align-items: center; /* Keep icon and text aligned */
+    justify-content: flex-start;
     background-color: var(--light-bg);
     padding: 10px 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     width: 100%; /* Ensure the box takes full width of the grid column */
     max-width: auto; /* Optional: Constrain the width of each box */
     margin: 0 auto; /* Center the box itself */
@@ -728,7 +763,7 @@ header .container {
     font-weight: bold;
     color: var(--secondary-color);
     font-size: 1.1em;
-    margin-right: 10px; /* Added margin-right */
+    /* Removed margin-right: 10px; as stars are on next line */
     white-space: normal; /* Allow wrapping */
 }
 
@@ -736,7 +771,9 @@ header .container {
     display: flex;
     gap: 2px;
     flex-shrink: 0;
-    margin-left: auto; /* Push to right */
+    margin-left: 0; /* Align to left */
+    flex-basis: 100%; /* Force to new line */
+    margin-top: 5px; /* Add some space from the text above */
 }
 
 .stars .fas.fa-star {
