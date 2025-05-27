@@ -6,49 +6,34 @@
 }
 
 :root {
-    --primary-color: #3498db; /* A nice blue for accents */
-    --secondary-color: #2c3e50; /* Darker blue for text/background */
-
-    /* YELLOW GRADIENT COLORS FOR BANNER */
-    --banner-dark-yellow: #FFBF00; /* A warm, amber-like yellow */
-    --banner-light-yellow: #ffc400; /* A soft, creamy yellow */
-
-    --text-color: #333; /* Default text color */
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --banner-dark-yellow: #FFBF00;
+    --banner-light-yellow: #ffc400;
+    --text-color: #333;
     --light-bg: #f8f8f8;
-    --dark-bg: #e2e2e2;
     --white: #fff;
     --border-color: #ddd;
-    --hover-color: #2980b9; /* Darker primary for hover */
-    --star-color: #f39c12; /* Golden color for stars */
-    --timeline-line: #b0b0b0; /* Color for the horizontal line */
-    --black-text: #000000; /* Explicit black color for banner text */
-
-    --font-family-sans: 'Helvetica Neue', Arial, sans-serif;
+    --hover-color: #2980b9;
+    --star-color: #f39c12;
+    --black-text: #000000;
     --font-family-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     --font-family-headings: 'Inter', Arial, sans-serif;
-    --max-width: 1200px; /* This is the key for consistent content width */
+    --max-width: 1200px;
 }
 
 body {
     font-family: var(--font-family-body);
     line-height: 1.6;
     color: var(--text-color);
-    background-color: white; /* Explicitly set body background to white */
+    background-color: white;
     overflow-x: hidden;
 }
 
-/* Ensure consistent container alignment */
 .container {
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 0 20px;
-}
-
-/* Example: Remove overrides in specific sections */
-.about-section .container,
-.skills-section .container,
-.timeline-section .container {
-    padding: 0 20px; /* Ensure consistent padding */
 }
 
 h1, h2, h3, h4 {
@@ -58,7 +43,6 @@ h1, h2, h3, h4 {
 }
 
 h1 { font-size: 2.8em; }
-/* Removed h2 and h3 base styles here as they are now standardized below */
 h4 { font-size: 1.2em; margin-bottom: 0.5em; }
 
 p {
@@ -96,7 +80,6 @@ a:hover {
     transform: translateY(-2px);
 }
 
-/* Global Transitions for smooth animations */
 button, a, img {
     transition: all 0.3s ease;
 }
@@ -116,30 +99,27 @@ header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px; /* Keep padding for header content */
+    padding: 0 20px;
 }
 
 .logo {
-    display: flex; /* Use flexbox for icon and text alignment */
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align icon and text to the left */
-    /* Removed font-size and font-weight from here as they are now set on the span */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     color: var(--secondary-color);
 }
 
 .logo img {
-    height: 54px; /* Set logo image height to 54px */
-    margin-right: 0; /* No horizontal margin needed when stacked vertically */
-    margin-bottom: 5px; /* Space between logo and text */
+    height: 54px;
+    margin-bottom: 5px;
 }
 
 .logo span {
-    font-size: 0.9em; /* Slightly smaller than the base .logo font size */
-    font-weight: bold; /* Made bold as requested */
-    color: var(--secondary-color); /* Keep the same color */
-    text-align: left; /* Ensure text aligns to the left under the logo */
+    font-size: 0.9em;
+    font-weight: bold;
+    color: var(--secondary-color);
+    text-align: left;
 }
-
 
 .nav-links {
     list-style: none;
@@ -182,35 +162,35 @@ header .container {
 /* Hero Section (Three-Column Top Banner Style) */
 .hero.hero-banner-style {
     background: radial-gradient(circle at center, var(--banner-dark-yellow) 0%, var(--banner-light-yellow) 50%);
-    padding: 0; /* Changed to 0 for top/bottom padding */
-    margin: 0; /* Ensures no default margin */
+    padding: 0;
+    margin: 0;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 400px; /* Fixed height to match previous visual size without internal padding */
-    min-height: 400px; /* Keep min-height for responsiveness */
+    height: 400px;
+    min-height: 400px;
     overflow: hidden;
-    border-bottom: 2px solid var(--black-text); /* Black line at the bottom */
+    border-bottom: 2px solid var(--black-text);
 }
 
 .hero-banner-style .container {
-    padding: 0 20px; /* Keep horizontal padding, remove vertical */
-    height: 100%; /* Make container fill the banner height */
-    display: flex; /* Ensure flex behavior for content-wrapper */
-    align-items: center; /* Vertically center content-wrapper within container */
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .hero-banner-style .hero-content-wrapper.three-columns {
     display: flex;
-    justify-content: center; /* Horizontally align columns */
-    align-items: center; /* Vertically align content of columns */
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
     padding: 0;
     margin-bottom: 0;
-    gap: 10px; /* Space between columns */
+    gap: 10px;
 }
 
 .hero-column {
@@ -223,7 +203,6 @@ header .container {
     height: 100%;
 }
 
-/* Specific flex basis for each column in the top banner */
 .hero-column.col-1 {
     flex: 0 0 25%;
 }
@@ -234,8 +213,6 @@ header .container {
     flex: 0 0 50%;
 }
 
-
-/* Base style for all hero images wrappers */
 .hero-image-wrapper {
     width: 100%;
     height: 100%;
@@ -252,7 +229,6 @@ header .container {
     object-fit: contain;
 }
 
-/* Specific styling for the arrow image (col-1) */
 .arrow-image-wrapper {
     width: auto;
     height: auto;
@@ -267,7 +243,6 @@ header .container {
     object-fit: contain;
 }
 
-/* Profile Image Wrapper - Square border and shadow */
 .profile-image-wrapper {
     width: auto;
     height: auto;
@@ -290,8 +265,6 @@ header .container {
     border-radius: 0;
 }
 
-
-/* Re-styling for content within the third column */
 .hero-text-content {
     color: var(--black-text);
     text-align: center;
@@ -315,7 +288,6 @@ header .container {
     line-height: 1.2;
 }
 
-/* Add this new rule for the sub-tagline */
 .hero-text-content .tagline .sub-tagline {
     display: block;
     font-size: 0.65em;
@@ -323,7 +295,6 @@ header .container {
     margin-top: 5px;
     opacity: 0.9;
 }
-
 
 .hero-text-content .experience-text {
     font-size: 1.1em;
@@ -333,7 +304,6 @@ header .container {
     margin-bottom: 20px;
 }
 
-/* Separator line between tagline and experience text */
 .separator-line {
     width: 40px;
     height: 2px;
@@ -341,7 +311,6 @@ header .container {
     margin: 5px auto;
 }
 
-/* Software Icons - No background or reflection */
 .software-icons {
     display: flex;
     justify-content: center;
@@ -367,12 +336,13 @@ header .container {
 }
 
 
-/* About Section - New Two-Column Layout */
+/* About Section */
 .about-section {
-    padding: 0; /* Set padding to 0 */
-    margin-top: 0; /* Set margin-top to 0 */
+    padding: 0;
+    margin-top: 0;
     background-color: var(--white);
     text-align: center;
+    position: relative;
 }
 
 .about-content-wrapper.two-columns {
@@ -422,7 +392,6 @@ header .container {
     object-fit: contain;
 }
 
-/* About Intro - The text content box */
 .about-intro {
     width: 100%;
     font-size: 1.1em;
@@ -436,7 +405,6 @@ header .container {
     margin: 0;
 }
 
-/* Removed h2 style from here, now standardized below */
 .about-intro p {
     color: var(--text-color);
     text-shadow: none;
@@ -444,7 +412,12 @@ header .container {
     margin-bottom: 0;
 }
 
-/* Scroll Down Arrow Styling */
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
 #scroll-down-arrow {
     position: absolute;
     bottom: 20px;
@@ -456,24 +429,31 @@ header .container {
     cursor: pointer;
     animation: flash 1.5s infinite alternate;
     transition: opacity 0.3s ease-out;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Keyframes for flashing animation */
 @keyframes flash {
-    0% { opacity: 0.2; transform: translateX(-50%) translateY(0); }
-    50% { opacity: 1; transform: translateX(-50%) translateY(5px); }
-    100% { opacity: 0.2; transform: translateX(-50%) translateY(0); }
+    0% {
+        opacity: 0.2;
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(5px);
+    }
+    100% {
+        opacity: 0.2;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
-/* When the arrow should be hidden (via JS, by adding 'hidden' class) */
 #scroll-down-arrow.hidden {
     opacity: 0;
     pointer-events: none;
 }
 
 
-/* --- Standardized Section Padding and Margin --- */
+/* Standardized Section Padding and Margin */
 .timeline-section,
 .skills-section,
 .portfolio,
@@ -482,20 +462,25 @@ header .container {
     margin-top: 80px;
 }
 
-/* --- Standardized Section Heading Styles --- */
+/* Standardized Section Heading Styles */
 .timeline-section h2,
 .portfolio h2,
-.contact h2,
-.about-section h2,
 .skills-section h3 {
     font-size: 2.2em;
     font-weight: 700;
-    margin-bottom: 1.5em; /* Increased margin-bottom for better spacing */
+    margin-bottom: 1.5em;
     color: var(--secondary-color);
     text-align: center;
 }
 
-/* Keep the ::after pseudo-elements for underlines */
+.contact h2 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 1.5em;
+    color: var(--white);
+    text-align: center;
+}
+
 .timeline-section h2::after,
 .portfolio h2::after,
 .skills-section h3::after {
@@ -511,34 +496,26 @@ header .container {
 }
 
 
-/* --- Timeline Section Styling (Work Experience & Education) --- */
-/* Removed padding and margin-top from .timeline-section as it's now handled by the combined rule above */
+/* Timeline Section Styling (Work Experience & Education) */
 .timeline-section {
-    background-color: transparent; /* No background here, moved to wrapper */
+    background-color: transparent;
     text-align: center;
-    border-radius: 0; /* No border-radius here */
-    box-shadow: none; /* No shadow here */
-    max-width: none; /* Let container control width */
+    max-width: none;
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
 }
 
-/* New wrapper to hold the timeline content with background and shadow */
 .timeline-content-wrapper {
-    background-color: rgba(255, 255, 255, 0.9); /* White background */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    padding: 80px; /* Internal padding for the content */
-    margin: 0 auto; /* Center within .container */
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 80px;
+    margin: 0 auto;
     box-sizing: border-box;
-    width: 100%; /* Take full width of parent .container */
-    position: relative; /* Added for absolute positioning of the arrow */
+    width: 100%;
+    position: relative;
 }
-
-
-/* Removed h2 style from .timeline-section as it's now standardized above */
-/* Removed ::after from .timeline-section h2 as it's now standardized above */
 
 .timeline {
     display: flex;
@@ -547,13 +524,10 @@ header .container {
     position: relative;
     padding-top: 60px;
     padding-bottom: 60px;
-    padding-left: 0; /* Let timeline-content-wrapper handle horizontal padding */
-    padding-right: 0; /* Let timeline-content-wrapper handle horizontal padding */
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    /* Change width to min-width to allow it to expand beyond 100% */
-    min-width: 100%; /* This is the key change for the line to span */
+    min-width: 100%;
     margin: 0 auto;
     min-height: 200px;
     box-sizing: content-box;
@@ -597,11 +571,9 @@ header .container {
     align-items: center;
     cursor: pointer;
     min-height: 180px;
-
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-/* Hover effects for the item itself */
 .timeline-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
@@ -669,7 +641,7 @@ header .container {
     line-height: 1.7;
     color: var(--text-color);
 }
-/* --- END Timeline Section Styling --- */
+/* END Timeline Section Styling */
 
 
 /* Styles for interactive timeline scroll arrows */
@@ -682,79 +654,70 @@ header .container {
     cursor: pointer;
     z-index: 10;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    opacity: 1; /* Default visible */
-    pointer-events: auto; /* Allow clicks */
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .timeline-scroll-arrow.left {
-    left: 20px; /* Position from the left edge */
+    left: 20px;
 }
 
 .timeline-scroll-arrow.right {
-    right: 20px; /* Position from the right edge */
+    right: 20px;
 }
 
 .timeline-scroll-arrow.hidden {
     opacity: 0;
-    pointer-events: none; /* Disable clicks when hidden */
+    pointer-events: none;
 }
 
-/* Optional: Add a subtle hover effect for arrows */
 .timeline-scroll-arrow:hover {
     transform: translateY(-50%) scale(1.1);
 }
 
 
-/* Skills Section Styling (New wrapper for content) */
-/* Removed padding and margin-top from .skills-section as it's now handled by the combined rule above */
+/* Skills Section Styling */
 .skills-section {
     background-color: var(--white);
-    text-align: center; /* Center the h3 within the container */
+    text-align: center;
 }
 
-/* New wrapper to hold the skills content with background and shadow */
 .skills-content-wrapper {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     padding: 80px;
-    margin: 0 auto; /* Keep this to ensure centering within its parent (.container) */
+    margin: 0 auto;
     box-sizing: border-box;
 }
 
-/* Removed h3 style from .skills-section as it's now standardized above */
-/* Removed ::after from .skills-section h3 as it's now standardized above */
-
-/* Skills Section Fixes */
 .skills-rating-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns */
-    gap: 20px 30px; /* Updated gap */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 30px;
     margin-bottom: 30px;
-    max-width: 800px; /* Set max-width */
+    max-width: 800px;
     margin-left: auto;
-    margin-right: auto; /* Center the grid */
-    /* Removed justify-content: center; as max-width and auto margins center the grid */
+    margin-right: auto;
 }
 
 .skill-item {
     display: flex;
-    align-items: center; /* Keep icon and text aligned */
+    align-items: center;
     justify-content: flex-start;
     background-color: var(--light-bg);
     padding: 10px 15px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    width: 100%; /* Ensure the box takes full width of the grid column */
-    max-width: auto; /* Optional: Constrain the width of each box */
-    margin: 0 auto; /* Center the box itself */
-    flex-wrap: wrap; /* Allow wrapping */
+    width: 100%;
+    margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 .skill-item .skill-icon {
     width: 30px;
     height: 30px;
-    margin-right: 12px; /* Updated margin */
+    margin-right: 12px;
     object-fit: contain;
     flex-shrink: 0;
 }
@@ -763,17 +726,16 @@ header .container {
     font-weight: bold;
     color: var(--secondary-color);
     font-size: 1.1em;
-    /* Removed margin-right: 10px; as stars are on next line */
-    white-space: normal; /* Allow wrapping */
+    white-space: normal;
 }
 
 .stars {
     display: flex;
     gap: 2px;
     flex-shrink: 0;
-    margin-left: 0; /* Align to left */
-    flex-basis: 100%; /* Force to new line */
-    margin-top: 5px; /* Add some space from the text above */
+    margin-left: 0;
+    flex-basis: 100%;
+    margin-top: 5px;
 }
 
 .stars .fas.fa-star {
@@ -787,74 +749,88 @@ header .container {
 }
 
 
-/* New styles for platforms and languages section */
+/* Styles for platforms and languages section */
 .platforms-languages-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
-    max-width: 800px; /* Constrain if needed within wrapper */
-    margin: 30px auto 0 auto; /* Center this container */
+    max-width: 800px;
+    margin: 30px auto 0 auto;
     padding-top: 30px;
     border-top: 1px solid var(--border-color);
 }
 
-.skill-platforms, .skill-languages {
+.skill-category {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    padding: 10px;
+    gap: 10px;
+    padding: 0 10px;
 }
 
-.skill-platforms h4, .skill-languages h4 {
+.skill-category h4 {
+    display: flex;
+    align-items: center;
     margin-bottom: 0;
     text-align: center;
+    white-space: nowrap;
+    font-size: 1.2em;
+    color: var(--secondary-color);
 }
 
-.icon-list-horizontal {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.icon-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 5px;
-}
-
-.platform-language-icon {
-    width: 40px;
-    height: 40px;
+.skill-category .category-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
     object-fit: contain;
     flex-shrink: 0;
 }
 
-.icon-item span {
-    font-size: 0.9em;
-    color: var(--secondary-color);
+.category-list {
+    font-size: 1.1em;
     font-weight: normal;
+    color: var(--text-color);
+    white-space: nowrap;
 }
 
-/* Portfolio Section Heading (My Work) */
-/* Removed h2 style from .portfolio as it's now standardized above */
-/* Removed ::after from .portfolio h2 as it's now standardized above */
 
 /* Portfolio Section */
-/* Removed padding and margin-top from .portfolio as it's now handled by the combined rule above */
 .portfolio {
     background-color: var(--white);
     text-align: center;
 }
 
+.portfolio-subsection {
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.portfolio-subsection h3 {
+    font-size: 1.8em;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+}
+
+.portfolio-subsection h3::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary-color);
+    border-radius: 1px;
+}
+
+
 .portfolio-item {
     background-color: var(--light-bg);
     border-radius: 10px;
     padding: 30px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     text-align: left;
 }
@@ -866,12 +842,6 @@ header .container {
 .portfolio-item h3 {
     color: var(--primary-color);
     margin-bottom: 10px;
-}
-
-.project-description {
-    font-size: 1.1em;
-    margin-bottom: 20px;
-    color: #555;
 }
 
 .carousel-container {
@@ -945,14 +915,11 @@ header .container {
 }
 
 /* Contact Section */
-/* Removed padding and margin-top from .contact as it's now handled by the combined rule above */
 .contact {
     background-color: var(--secondary-color);
     color: var(--white);
     text-align: center;
 }
-
-/* Removed h2 style from .contact as it's now standardized above */
 
 .contact p {
     margin-bottom: 30px;
@@ -1046,7 +1013,7 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-/* --- Responsive Design (Media Queries) --- */
+/* Responsive Design (Media Queries) */
 
 @media (max-width: 768px) {
     header .container {
@@ -1093,44 +1060,47 @@ footer {
         display: block;
     }
 
+    .logo img {
+        height: 40px;
+    }
+
     /* Hero Banner Mobile Adjustments */
     .hero.hero-banner-style {
         padding: 0;
         min-height: auto;
         height: auto;
         border-bottom: 2px solid var(--black-text);
-        padding-top: 20px; /* Add some top padding when stacked */
-        padding-bottom: 20px; /* Add some bottom padding when stacked */
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
     .hero-banner-style .container {
         padding: 0 15px;
         height: auto;
     }
     .hero-banner-style .hero-content-wrapper.three-columns {
-        flex-direction: column; /* Stack columns on mobile */
+        flex-direction: column;
         padding: 0;
-        gap: 20px; /* Add vertical gap between stacked columns */
+        gap: 20px;
         height: auto;
     }
 
     .hero-column {
-        width: 100%; /* Take full width when stacked */
-        max-width: 300px; /* Constrain overall width for readability */
+        width: 100%;
+        max-width: 300px;
         padding: 0;
         justify-content: center;
-        align-items: center; /* Ensure content within each column is centered */
+        align-items: center;
         min-height: auto;
         height: auto;
     }
-    /* Mobile column sizing for stacked layout - reset flex basis */
+
     .hero-column.col-1,
     .hero-column.col-2,
     .hero-column.col-3 {
-        flex: none; /* Reset flex, let width and max-width control size */
+        flex: none;
         width: 100%;
     }
 
-    /* Profile Image Wrapper - Mobile */
     .profile-image-wrapper {
         width: 150px;
         height: 150px;
@@ -1140,13 +1110,11 @@ footer {
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         border-radius: 0;
     }
-    /* Arrow Image Wrapper - Mobile */
     .arrow-image-wrapper {
         width: 100px;
         height: 100px;
         margin-bottom: -15px;
     }
-
 
     .hero-text-content h1 {
         font-size: 2em;
@@ -1176,7 +1144,6 @@ footer {
     }
 
     /* About Section Mobile Adjustments */
-    /* Removed padding and margin-top from .about-section as it's now handled by combined rule above */
     .about-section {
         min-height: auto;
         height: auto;
@@ -1208,21 +1175,16 @@ footer {
 
 
     /* Timeline Mobile Adjustments */
-    /* Removed margin-top and padding from .timeline-section as it's now handled by combined rule above */
     .timeline-content-wrapper {
-        padding: 20px; /* Reduce padding for mobile */
-        border-radius: 0; /* No rounded corners on mobile like skills-content-wrapper */
-        box-shadow: 0 2px 10px rgba(0,0,0,0.08); /* Lighter shadow like skills-content-wrapper */
+        padding: 20px;
+        border-radius: 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
 
-    /* Removed h2 style from .timeline-section as it's now standardized above */
-    /* Removed ::after from .timeline-section h2 as it's now standardized above */
-
-    /* Adjust the Timeline Box to Start Below the Heading */
     .timeline {
-        margin-top: 0; /* No extra margin here, wrapper provides space */
+        margin-top: 0;
+        align-items: flex-start;
     }
-
 
     /* Vertical line for mobile */
     .timeline::before {
@@ -1238,7 +1200,7 @@ footer {
         width: 100%;
         max-width: none;
         margin: 1.5rem 0;
-        padding: 0 0 0 50px; /* This is the new padding for vertical timeline */
+        padding: 0 0 0 50px;
         flex: none;
         align-items: flex-start;
         min-height: auto;
@@ -1275,7 +1237,6 @@ footer {
 
 
     /* Skills Section Mobile Adjustments */
-    /* Removed margin-top and padding from .skills-section as it's now handled by combined rule above */
     .skills-content-wrapper {
         padding: 20px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.08);
@@ -1287,7 +1248,7 @@ footer {
 
     .skill-item {
         flex-direction: row;
-        justify-content: flex-start; /* Changed to flex-start as per instructions */
+        justify-content: flex-start;
     }
     .skill-item span {
         margin-right: 10px;
@@ -1297,16 +1258,35 @@ footer {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    .skill-platforms, .skill-languages {
+    .skill-category {
         flex-direction: column;
         align-items: center;
         gap: 5px;
         margin-bottom: 10px;
     }
-    .icon-list-horizontal {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+    .skill-category h4 {
+        white-space: normal;
+    }
+    .category-list {
+        white-space: normal;
+        text-align: center;
+    }
+
+    /* Portfolio Section Mobile Adjustments */
+    .portfolio-subsection {
+        margin-bottom: 40px;
+    }
+    .portfolio-subsection h3 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+    .portfolio-item {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .carousel-btn {
+        padding: 10px 5px;
+        font-size: 1.2em;
     }
 }
 
