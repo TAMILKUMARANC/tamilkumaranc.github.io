@@ -201,4 +201,84 @@ document.addEventListener('DOMContentLoaded', function() {
     // Run arrow image update on page load and resize
     updateArrowImage();
     window.addEventListener('resize', updateArrowImage);
+
+    // Call the setup function for timeline scroll arrows
+    setupTimelineScrollArrows();
 });
+
+// Function to handle timeline scroll arrows visibility (defined outside DOMContentLoaded for clarity)
+function setupTimelineScrollArrows() {
+    // Select all timeline content wrappers
+    const timelineWrappers = document.querySelectorAll('.timeline-content-wrapper');
+
+    timelineWrappers.forEach(wrapper => {
+        const timeline = wrapper.querySelector('.timeline');
+        // If no timeline element found inside the wrapper, skip this wrapper
+        if (!timeline) return;
+
+        // Create the left arrow element
+        const leftArrow = document.createElement('div');
+        leftArrow.classList.add('timeline-scroll-arrow', 'left', 'hidden'); // Start hidden
+        leftArrow.innerHTML = '<i class="fas fa-chevron-left"></i>'; // Font Awesome left arrow icon
+        wrapper.appendChild(leftArrow); // Append to the wrapper
+
+        // Create the right arrow element
+        const rightArrow = document.createElement('div');
+        rightArrow.classList.add('timeline-scroll-arrow', 'right'); // Start visible (assuming content is scrollable initially)
+        rightArrow.innerHTML = '<i class="fas fa-chevron-right"></i>'; // Font Awesome right arrow icon
+        wrapper.appendChild(rightArrow); // Append to the wrapper
+
+        // Function to update the visibility of the arrows based on scroll position
+        const updateArrows = () => {
+            // Check if scroll is at the very beginning (left)
+            // If scrollLeft is 0 or less, hide the left arrow
+            if (timeline.scrollLeft <= 0) {
+                leftArrow.classList.add('hidden');
+            } else {
+                leftArrow.classList.remove('hidden');
+            }
+
+            // Check if scroll is at the very end (right)
+            // Compare current scroll position + visible width with total scrollable width
+            // A small tolerance is added to account for potential floating point inaccuracies
+            const scrollTolerance = 1; // Small buffer for end detection
+            if (timeline.scrollLeft + timeline.clientWidth >= timeline.scrollWidth - scrollTolerance) {
+                rightArrow.classList.add('hidden');
+            } else {
+                rightArrow.classList.remove('hidden');
+            }
+
+            // If the content is not scrollable at all (e.g., all items fit without scrolling), hide both arrows
+            if (timeline.scrollWidth <= timeline.clientWidth) {
+                leftArrow.classList.add('hidden');
+                rightArrow.classList.add('hidden');
+            }
+        };
+
+        // Add a scroll event listener to the timeline element
+        timeline.addEventListener('scroll', updateArrows);
+
+        // Add click listeners to the arrows for smooth scrolling
+        leftArrow.addEventListener('click', () => {
+            timeline.scrollBy({
+                left: -300, // Scroll left by 300 pixels
+                behavior: 'smooth' // Smooth scrolling animation
+            });
+        });
+
+        rightArrow.addEventListener('click', () => {
+            timeline.scrollBy({
+                left: 300, // Scroll right by 300 pixels
+                behavior: 'smooth' // Smooth scrolling animation
+            });
+        });
+
+        // Initial check for arrow visibility when the page loads
+        // No need for window.onload here as it's handled by DOMContentLoaded and initial call
+        // Re-check arrow visibility on window resize (important for responsive layouts)
+        window.addEventListener('resize', updateArrows);
+
+        // Call updateArrows once immediately to set the initial state correctly
+        updateArrows();
+    });
+}
