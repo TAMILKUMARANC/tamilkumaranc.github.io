@@ -58,8 +58,7 @@ h1, h2, h3, h4 {
 }
 
 h1 { font-size: 2.8em; }
-h2 { font-size: 2.2em; }
-h3 { font-size: 1.8em; }
+/* Removed h2 and h3 base styles here as they are now standardized below */
 h4 { font-size: 1.2em; margin-bottom: 0.5em; }
 
 p {
@@ -120,15 +119,25 @@ header .container {
     padding: 0 20px; /* Keep padding for header content */
 }
 
+.logo {
+    display: flex; /* Use flexbox for icon and text alignment */
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align icon and text to the left */
+    /* Removed font-size and font-weight from here as they are now set on the span */
+    color: var(--secondary-color);
+}
+
 .logo img {
-    height: 36px; /* Set logo image height to 54px */
-    margin-right: 10px; /* Space between logo and text */
+    height: 54px; /* Set logo image height to 54px */
+    margin-right: 0; /* No horizontal margin needed when stacked vertically */
+    margin-bottom: 5px; /* Space between logo and text */
 }
 
 .logo span {
     font-size: 0.9em; /* Slightly smaller than the base .logo font size */
-    font-weight: bold; /* Changed to bold */
+    font-weight: bold; /* Made bold as requested */
     color: var(--secondary-color); /* Keep the same color */
+    text-align: left; /* Ensure text aligns to the left under the logo */
 }
 
 
@@ -198,7 +207,7 @@ header .container {
     justify-content: center; /* Horizontally align columns */
     align-items: center; /* Vertically align content of columns */
     width: 100%;
-    height: 100%; /* Make wrapper fill container height */
+    height: 100%;
     padding: 0;
     margin-bottom: 0;
     gap: 10px; /* Space between columns */
@@ -360,8 +369,8 @@ header .container {
 
 /* About Section - New Two-Column Layout */
 .about-section {
-    padding: 0;
-    margin-top: 0;
+    padding: 0; /* Set padding to 0 */
+    margin-top: 0; /* Set margin-top to 0 */
     background-color: var(--white);
     text-align: center;
 }
@@ -427,11 +436,7 @@ header .container {
     margin: 0;
 }
 
-.about-intro h2 {
-    color: var(--secondary-color);
-    text-shadow: none;
-}
-
+/* Removed h2 style from here, now standardized below */
 .about-intro p {
     color: var(--text-color);
     text-shadow: none;
@@ -468,10 +473,47 @@ header .container {
 }
 
 
+/* --- Standardized Section Padding and Margin --- */
+.timeline-section,
+.skills-section,
+.portfolio,
+.contact {
+    padding: 40px 0;
+    margin-top: 40px;
+}
+
+/* --- Standardized Section Heading Styles --- */
+.timeline-section h2,
+.portfolio h2,
+.contact h2,
+.about-section h2,
+.skills-section h3 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 1.5em; /* Increased margin-bottom for better spacing */
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+/* Keep the ::after pseudo-elements for underlines */
+.timeline-section h2::after,
+.portfolio h2::after,
+.skills-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+
 /* --- Timeline Section Styling (Work Experience & Education) --- */
+/* Removed padding and margin-top from .timeline-section as it's now handled by the combined rule above */
 .timeline-section {
-    padding: 80px 0; /* Matches Skills Section */
-    margin-top: 80px; /* Matches Skills Section */
     background-color: transparent; /* No background here, moved to wrapper */
     text-align: center;
     border-radius: 0; /* No border-radius here */
@@ -494,26 +536,8 @@ header .container {
 }
 
 
-.timeline-section h2 {
-    font-size: 1.8em; /* Match the font size of Skills Section h3 */
-    margin-bottom: 30px; /* Match the spacing below the heading */
-    color: var(--secondary-color); /* Use the same color as Skills Section */
-    position: relative;
-    padding-bottom: 10px;
-    text-align: center;
-}
-
-.timeline-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: var(--primary-color);
-    border-radius: 2px;
-}
+/* Removed h2 style from .timeline-section as it's now standardized above */
+/* Removed ::after from .timeline-section h2 as it's now standardized above */
 
 .timeline {
     display: flex;
@@ -647,10 +671,9 @@ header .container {
 
 
 /* Skills Section Styling (New wrapper for content) */
+/* Removed padding and margin-top from .skills-section as it's now handled by the combined rule above */
 .skills-section {
-    padding: 80px 0;
     background-color: var(--white);
-    margin-top: 80px;
     text-align: center; /* Center the h3 within the container */
 }
 
@@ -664,42 +687,25 @@ header .container {
     box-sizing: border-box;
 }
 
-.skills-section h3 {
-    margin-bottom: 30px;
-    color: var(--secondary-color);
-    position: relative;
-    padding-bottom: 10px;
-    text-align: center;
-}
+/* Removed h3 style from .skills-section as it's now standardized above */
+/* Removed ::after from .skills-section h3 as it's now standardized above */
 
-.skills-section h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: var(--primary-color);
-    border-radius: 2px;
-}
-
-/* Grid for 2 columns on larger screens, now explicitly centering the grid itself */
+/* Skills Section Fixes */
 .skills-rating-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Two columns */
-    gap: 20px 50px; /* Space between rows and columns */
+    gap: 20px 30px; /* Updated gap */
     margin-bottom: 30px;
-    max-width: auto; /* Constrain grid width */
+    max-width: 800px; /* Set max-width */
     margin-left: auto;
     margin-right: auto; /* Center the grid */
-    justify-content: center; /* Center the grid items */
+    /* Removed justify-content: center; as max-width and auto margins center the grid */
 }
 
 .skill-item {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Align icon and text to the left */
+    justify-content: flex-start; /* Align everything to left */
     background-color: var(--light-bg);
     padding: 10px 15px;
     border-radius: 8px;
@@ -707,13 +713,13 @@ header .container {
     width: 100%; /* Ensure the box takes full width of the grid column */
     max-width: auto; /* Optional: Constrain the width of each box */
     margin: 0 auto; /* Center the box itself */
-    
+    flex-wrap: wrap; /* Allow wrapping */
 }
 
 .skill-item .skill-icon {
     width: 30px;
     height: 30px;
-    margin-right: 15px; /* Space between icon and text */
+    margin-right: 12px; /* Updated margin */
     object-fit: contain;
     flex-shrink: 0;
 }
@@ -722,13 +728,15 @@ header .container {
     font-weight: bold;
     color: var(--secondary-color);
     font-size: 1.1em;
-    white-space: nowrap;
+    margin-right: 10px; /* Added margin-right */
+    white-space: normal; /* Allow wrapping */
 }
 
 .stars {
     display: flex;
     gap: 2px;
     flex-shrink: 0;
+    margin-left: auto; /* Push to right */
 }
 
 .stars .fas.fa-star {
@@ -795,33 +803,14 @@ header .container {
 }
 
 /* Portfolio Section Heading (My Work) */
-.portfolio h2 {
-    font-size: 1.8em; /* Match the font size of Skills Section h3 */
-    margin-bottom: 30px; /* Match the spacing below the heading */
-    color: var(--secondary-color); /* Use the same color as Skills Section */
-    position: relative;
-    padding-bottom: 10px;
-    text-align: center;
-}
-
-.portfolio h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: var(--primary-color);
-    border-radius: 2px;
-}
+/* Removed h2 style from .portfolio as it's now standardized above */
+/* Removed ::after from .portfolio h2 as it's now standardized above */
 
 /* Portfolio Section */
+/* Removed padding and margin-top from .portfolio as it's now handled by the combined rule above */
 .portfolio {
-    padding: 80px 0;
     background-color: var(--white);
     text-align: center;
-    margin-top: 80px;
 }
 
 .portfolio-item {
@@ -919,17 +908,14 @@ header .container {
 }
 
 /* Contact Section */
+/* Removed padding and margin-top from .contact as it's now handled by the combined rule above */
 .contact {
-    padding: 80px 0;
     background-color: var(--secondary-color);
     color: var(--white);
     text-align: center;
-    margin-top: 80px;
 }
 
-.contact h2 {
-    color: var(--white);
-}
+/* Removed h2 style from .contact as it's now standardized above */
 
 .contact p {
     margin-bottom: 30px;
@@ -1153,9 +1139,8 @@ footer {
     }
 
     /* About Section Mobile Adjustments */
+    /* Removed padding and margin-top from .about-section as it's now handled by combined rule above */
     .about-section {
-        padding: 0;
-        margin-top: 0;
         min-height: auto;
         height: auto;
     }
@@ -1186,38 +1171,15 @@ footer {
 
 
     /* Timeline Mobile Adjustments */
-    .timeline-section {
-        margin-top: 40px;
-        padding: 40px 0; /* Adjust section padding on mobile */
-    }
-
+    /* Removed margin-top and padding from .timeline-section as it's now handled by combined rule above */
     .timeline-content-wrapper {
         padding: 20px; /* Reduce padding for mobile */
         border-radius: 0; /* No rounded corners on mobile like skills-content-wrapper */
         box-shadow: 0 2px 10px rgba(0,0,0,0.08); /* Lighter shadow like skills-content-wrapper */
     }
 
-    /* Timeline Section Heading (Education and Work Experience) */
-    .timeline-section h2 {
-        font-size: 1.8em; /* Match the font size of Skills Section h3 */
-        margin-bottom: 30px; /* Add spacing below the heading */
-        color: var(--secondary-color); /* Use the same color as Skills Section */
-        position: relative;
-        padding-bottom: 10px;
-        text-align: center;
-    }
-
-    .timeline-section h2::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 3px;
-        background-color: var(--primary-color);
-        border-radius: 2px;
-    }
+    /* Removed h2 style from .timeline-section as it's now standardized above */
+    /* Removed ::after from .timeline-section h2 as it's now standardized above */
 
     /* Adjust the Timeline Box to Start Below the Heading */
     .timeline {
@@ -1276,10 +1238,7 @@ footer {
 
 
     /* Skills Section Mobile Adjustments */
-    .skills-section {
-        margin-top: 40px;
-        padding: 40px 0;
-    }
+    /* Removed margin-top and padding from .skills-section as it's now handled by combined rule above */
     .skills-content-wrapper {
         padding: 20px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.08);
@@ -1291,7 +1250,7 @@ footer {
 
     .skill-item {
         flex-direction: row;
-        justify-content: center;
+        justify-content: flex-start; /* Changed to flex-start as per instructions */
     }
     .skill-item span {
         margin-right: 10px;
