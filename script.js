@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dotsContainer = container.querySelector('.carousel-dots');
 
         if (!track || slides.length === 0 || !nextButton || !prevButton || !dotsContainer) {
+            // Hide buttons/dots if there are no or single slides
             if (nextButton) nextButton.style.display = 'none';
             if (prevButton) prevButton.style.display = 'none';
             if (dotsContainer) dotsContainer.style.display = 'none';
@@ -113,8 +114,9 @@ document.addEventListener('DOMContentLoaded', function () {
         track.addEventListener('load', updateCarousel, true); // Listen for image loads within the track
     });
 
-
-    // Contact form
+    // Contact form (simulated submission) - REMOVED FORM HTML, so this block is now effectively commented out.
+    // Kept for reference if the form was ever re-added.
+    /*
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
     if (contactForm) {
@@ -138,119 +140,138 @@ document.addEventListener('DOMContentLoaded', function () {
                     formStatus.style.color = 'green';
                 }
                 contactForm.reset();
-            }, 2000);
+            }, 2000); // 2-second delay for demonstration
         });
     }
+    */
 
-    // Skill stars
+    // Skill stars rendering
     document.querySelectorAll('.stars').forEach(starsContainer => {
         const rating = parseInt(starsContainer.dataset.rating, 10);
-        starsContainer.innerHTML = '';
+        starsContainer.innerHTML = ''; // Clear existing content
         for (let i = 1; i <= 10; i++) {
             const starIcon = document.createElement('i');
             if (i <= rating) {
-                starIcon.classList.add('fas', 'fa-star');
+                starIcon.classList.add('fas', 'fa-star'); // Filled star
             } else {
-                starIcon.classList.add('far', 'fa-star');
+                starIcon.classList.add('far', 'fa-star'); // Empty star
             }
             starsContainer.appendChild(starIcon);
         }
     });
 
-    // Scroll down arrow logic
-    const scrollDownArrow = document.getElementById('scroll-down-arrow');
-    const aboutSection = document.getElementById('about');
-    function checkAboutScrollArrowVisibility() {
-        if (!scrollDownArrow || !aboutSection) return;
+    // Scroll indicator logic (Show/hide arrow with JS-driven fade)
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    const heroSection = document.getElementById('home'); // The hero section
+    const aboutSection = document.getElementById('about'); // The target section for clicking the arrow
 
-        // Get the bottom position of the about section relative to the viewport
-        const aboutSectionBottom = aboutSection.getBoundingClientRect().bottom;
-        const windowHeight = window.innerHeight;
+    // Function to animate opacity (ease-out effect in JS)
+    // This is a generic animation helper that can be used for any element's opacity
+    function animateFade(element, targetOpacity, duration) {
+        if (!element) return;
 
-        // If the bottom of the about section is within the viewport, hide the arrow.
-        // Or if the user has scrolled significantly past the top of the about section.
-        if (aboutSectionBottom < windowHeight || window.scrollY > (aboutSection.offsetTop + aboutSection.offsetHeight / 2)) {
-            scrollDownArrow.classList.add('hidden');
-        } else {
-            scrollDownArrow.classList.remove('hidden');
+        // Stop any ongoing animation to prevent conflicts
+        if (element.animationFrameId) {
+            cancelAnimationFrame(element.animationFrameId);
         }
+
+        const startOpacity = parseFloat(element.style.opacity || 1); // Get current opacity, default to 1
+        const startTime = performance.now();
+
+        function step(currentTime) {
+            const elapsedTime = currentTime - startTime;
+            let progress = Math.min(elapsedTime / duration, 1);
+
+            // Apply ease-out function (Cubic ease-out)
+            // This is a common easing function that starts fast and slows down.
+            progress = 1 - Math.pow(1 - progress, 3);
+
+            const newOpacity = startOpacity + (targetOpacity - startOpacity) * progress;
+            element.style.opacity = newOpacity;
+
+            if (progress < 1) {
+                element.animationFrameId = requestAnimationFrame(step); // Store ID to cancel later
+            } else {
+                // Animation finished: ensure final state is exact and clean up
+                element.style.opacity = targetOpacity;
+                if (targetOpacity === 0) {
+                    element.style.pointerEvents = 'none'; // Disable clicks when fully hidden
+                    element.classList.add('hidden'); // Add class for semantic state/other CSS properties
+                } else {
+                    element.style.pointerEvents = 'auto'; // Enable clicks when visible
+                    element.classList.remove('hidden'); // Remove class
+                }
+                element.animationFrameId = null; // Clear animation ID
+            }
+        }
+        element.animationFrameId = requestAnimationFrame(step); // Start the animation
     }
 
+    let isIndicatorVisible = true; // Track the current visual state of the indicator
 
-    if (scrollDownArrow && aboutSection) {
-        scrollDownArrow.addEventListener('click', function () {
+    const handleScrollIndicatorVisibility = () => {
+        if (!scrollIndicator || !heroSection) return;
+
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const heroSectionRect = heroSection.getBoundingClientRect();
+
+        // Calculate the absolute bottom position of the hero section
+        const heroSectionBottomAbsolute = heroSectionRect.bottom + window.pageYOffset;
+
+        // Determine if the indicator *should* be visible based on scroll position.
+        // It should be visible if the top of the viewport is within the hero section,
+        // allowing for a small buffer near the bottom of the hero section.
+        const bufferHeight = window.innerHeight * 0.2; // 20% of viewport height as buffer
+        const shouldBeVisible = (scrollTop < (heroSectionBottomAbsolute - bufferHeight));
+
+        if (shouldBeVisible && !isIndicatorVisible) {
+            // If it should be visible but is currently hidden, fade it in
+            animateFade(scrollIndicator, 1, 300); // Fade in over 300ms
+            isIndicatorVisible = true;
+        } else if (!shouldBeVisible && isIndicatorVisible) {
+            // If it should be hidden but is currently visible, fade it out
+            animateFade(scrollIndicator, 0, 300); // Fade out over 300ms
+            isIndicatorVisible = false;
+        }
+    };
+
+    if (scrollIndicator && heroSection && aboutSection) {
+        // Initial setup for the indicator's style before any scrolling or animation
+        scrollIndicator.style.opacity = '1';
+        scrollIndicator.style.pointerEvents = 'auto';
+        scrollIndicator.classList.remove('hidden'); // Ensure it starts visible
+
+        // Scroll to the "About Me" section when the indicator is clicked
+        scrollIndicator.addEventListener('click', () => {
             const headerOffset = document.querySelector('header')?.offsetHeight || 0;
+            // Scroll to the top of the 'about' section, adjusted for fixed header
             const offsetPosition = aboutSection.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
         });
+
+        // Add the scroll event listener and perform an initial check on load
+        window.addEventListener('scroll', handleScrollIndicatorVisibility);
+        handleScrollIndicatorVisibility();
     }
-    window.addEventListener('scroll', checkAboutScrollArrowVisibility);
-    checkAboutScrollArrowVisibility(); // Initial check on load
 
-    updateArrowImage();
-    window.addEventListener('resize', updateArrowImage);
-    setupTimelineScrollArrows();
-});
 
-function updateArrowImage() {
-    const arrowImage = document.querySelector('.arrow-image-wrapper img');
-    if (arrowImage) {
-        if (window.innerWidth <= 768) {
-            arrowImage.src = 'images/Arrow_Vertical.svg';
-            arrowImage.alt = 'Decorative Vertical Arrow Element';
-        } else {
-            arrowImage.src = 'images/arrow.svg';
-            arrowImage.alt = 'Decorative Arrow Element';
+    // Function to update arrow image based on screen size (Vertical for mobile, Horizontal for desktop)
+    function updateArrowImage() {
+        const arrowImage = document.querySelector('.arrow-image-wrapper img');
+        if (arrowImage) {
+            if (window.innerWidth <= 768) { // Assuming 768px as the breakpoint for mobile
+                arrowImage.src = 'images/Arrow_Vertical.svg';
+                arrowImage.alt = 'Decorative Vertical Arrow Element';
+            } else {
+                arrowImage.src = 'images/arrow.svg';
+                arrowImage.alt = 'Decorative Arrow Element';
+            }
         }
     }
-}
-
-function setupTimelineScrollArrows() {
-    const timelineWrappers = document.querySelectorAll('.timeline-content-wrapper');
-    timelineWrappers.forEach(wrapper => {
-        const timeline = wrapper.querySelector('.timeline');
-        if (!timeline) return;
-
-        const leftArrow = document.createElement('div');
-        leftArrow.classList.add('timeline-scroll-arrow', 'left', 'hidden');
-        leftArrow.innerHTML = '<i class="fas fa-chevron-left"></i>';
-        wrapper.appendChild(leftArrow);
-
-        const rightArrow = document.createElement('div');
-        rightArrow.classList.add('timeline-scroll-arrow', 'right');
-        rightArrow.innerHTML = '<i class="fas fa-chevron-right"></i>';
-        wrapper.appendChild(rightArrow);
-
-        const updateArrows = () => {
-            // Check if scrollWidth is greater than clientWidth to determine if scrolling is possible
-            if (timeline.scrollWidth <= timeline.clientWidth) {
-                leftArrow.classList.add('hidden');
-                rightArrow.classList.add('hidden');
-                return;
-            }
-
-            const scrollTolerance = 5; // A small buffer for floating point inaccuracies
-            if (timeline.scrollLeft <= scrollTolerance) {
-                leftArrow.classList.add('hidden');
-            } else {
-                leftArrow.classList.remove('hidden');
-            }
-
-            if (timeline.scrollLeft + timeline.clientWidth >= timeline.scrollWidth - scrollTolerance) {
-                rightArrow.classList.add('hidden');
-            } else {
-                rightArrow.classList.remove('hidden');
-            }
-        };
-
-        timeline.addEventListener('scroll', updateArrows);
-        leftArrow.addEventListener('click', () => {
-            timeline.scrollBy({ left: -300, behavior: 'smooth' });
-        });
-        rightArrow.addEventListener('click', () => {
-            timeline.scrollBy({ left: 300, behavior: 'smooth' });
-        });
-        window.addEventListener('resize', updateArrows);
-        updateArrows(); // Initial update
-    });
-}
+    // Call on load and on window resize
+    window.addEventListener('resize', updateArrowImage);
+    updateArrowImage(); // Initial call
+});
