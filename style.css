@@ -683,7 +683,7 @@ header .container {
 /* Skills Section Styling */
 .skills-section {
     background-color: var(--white);
-    text-align: center;
+    text-align: left;
 }
 
 .skills-content-wrapper {
