@@ -412,44 +412,58 @@ header .container {
     margin-bottom: 0;
 }
 
-.hidden {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease-in-out;
-}
 
-#scroll-down-arrow {
-    position: absolute;
+/* Scroll Indicator Styles */
+.scroll-indicator {
+    position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 2.5em;
-    color: var(--primary-color);
-    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    z-index: 1000;
     cursor: pointer;
-    animation: flash 1.5s infinite alternate;
-    transition: opacity 0.3s ease-out;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    pointer-events: auto;
 }
 
-@keyframes flash {
-    0% {
-        opacity: 0.2;
-        transform: translateX(-50%) translateY(0);
+.scroll-indicator.hidden {
+    transform: translateX(-50%) translateY(50px);
+}
+
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
     }
-    50% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(5px);
+    40% {
+        transform: translateY(-8px);
     }
-    100% {
-        opacity: 0.2;
-        transform: translateX(-50%) translateY(0);
+    60% {
+        transform: translateY(-4px);
     }
 }
 
-#scroll-down-arrow.hidden {
-    opacity: 0;
-    pointer-events: none;
+.scroll-indicator .scroll-text {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--secondary-color);
+    margin-bottom: 5px;
+}
+
+.scroll-indicator .scroll-arrow {
+    width: 32px;
+    height: 32px;
+    animation: bounce 1.5s infinite;
+    color: var(--primary-color);
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 
@@ -471,6 +485,7 @@ header .container {
     margin-bottom: 1.5em;
     color: var(--secondary-color);
     text-align: center;
+    position: relative;
 }
 
 .contact h2 {
@@ -479,6 +494,7 @@ header .container {
     margin-bottom: 1.5em;
     color: var(--white);
     text-align: center;
+    position: relative;
 }
 
 .timeline-section h2::after,
@@ -496,183 +512,171 @@ header .container {
 }
 
 
-/* Timeline Section Styling (Work Experience & Education) */
+/* Desktop Timeline Styling */
 .timeline-section {
-    background-color: transparent;
-    text-align: center;
-    max-width: none;
-    margin-left: auto;
-    margin-right: auto;
-    overflow: hidden;
-}
-
-.timeline-content-wrapper {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    padding: 80px;
-    margin: 0 auto;
-    box-sizing: border-box;
-    width: 100%;
-    position: relative;
-}
-
-.timeline {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    position: relative;
-    padding-top: 60px;
-    padding-bottom: 60px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    min-width: 100%;
-    margin: 0 auto;
-    min-height: 200px;
-    box-sizing: content-box;
-}
-
-/* Hide scrollbar */
-.timeline::-webkit-scrollbar {
-    display: none;
-}
-.timeline {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-/* Central horizontal line */
-.timeline::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 6px;
-    background: linear-gradient(to right, var(--primary-color), var(--hover-color), #2b6cb0);
-    transform: translateY(-50%);
-    z-index: 1;
-    border-radius: 3px;
-}
-
-/* Individual timeline item */
-.timeline-item {
-    flex: 0 0 300px;
-    position: relative;
-    text-align: center;
-    padding: 0;
-    z-index: 2;
-    scroll-snap-align: center;
-    margin: 0 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    min-height: 180px;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.timeline-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
-}
-
-/* Content block for each timeline item */
-.timeline-content {
-    background-color: white;
-    padding: 1.8rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    transition: all 0.3s ease-in-out;
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Alternating content position (snake effect) */
-.timeline-item:nth-child(odd) .timeline-content {
-    margin-bottom: 3rem;
-    margin-top: -1rem;
-}
-
-.timeline-item:nth-child(even) .timeline-content {
-    margin-top: 3rem;
-    margin-bottom: -1rem;
-}
-
-/* Date styling - now inside the content box */
-.timeline-date {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--white);
-    background-color: var(--primary-color);
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    width: fit-content;
-    align-self: center;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.timeline-item:hover .timeline-date {
-    background-color: var(--hover-color);
-}
-
-/* Hover effects for the content background */
-.timeline-item:hover .timeline-content {
-    background-color: #e2f0ff;
-}
-
-.timeline-content h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
+    background-color: #f8f7f2;
+    color: #0f2e3d;
+    padding: 80px 20px;
     margin-top: 0;
-    margin-bottom: 0.75rem;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.timeline-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
     color: var(--secondary-color);
 }
 
-.timeline-content p {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--text-color);
+.timeline-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
 }
-/* END Timeline Section Styling */
 
+.timeline {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    row-gap: 3rem;
+    padding-top: 20px;
+}
 
-/* Styles for interactive timeline scroll arrows */
-.timeline-scroll-arrow {
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #ccc;
+    transform: translateX(-50%);
+    z-index: 0;
+    border-radius: 1px;
+}
+
+.entry {
+    display: contents; /* Makes children of .entry direct grid items of .timeline */
+}
+
+.timeline-center-column {
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+}
+
+.dot-icon {
     position: absolute;
     top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: white;
+    border: 3px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: white;
+    z-index: 5;
+}
+
+.dot-icon.blue { background-color: #328692; border-color: #328692; }
+.dot-icon.orange { background-color: #ff684b; border-color: #ff684b; }
+.dot-icon.yellow { background-color: #fbc547; border-color: #fbc547; }
+
+
+.timeline-item-content {
+    background-color: transparent; /* Always transparent */
+    box-shadow: none; /* Always no shadow */
+    padding: 20px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    transition: none; /* Removed all transitions for hover effects */
+}
+
+/* REMOVED .timeline-item-content:hover rule entirely as requested */
+
+.timeline-item-content.left-aligned {
+    grid-column: 1;
+    text-align: right;
+    position: relative;
+    padding-right: 40px; /* Desktop padding */
+}
+
+.timeline-item-content.left-aligned::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
     transform: translateY(-50%);
-    font-size: 2.5em;
+    width: 20px;
+    height: 2px;
+    background-color: #ccc;
+    z-index: 1;
+}
+
+.timeline-item-content.right-aligned {
+    grid-column: 3;
+    text-align: left;
+    position: relative;
+    padding-left: 40px; /* Desktop padding */
+}
+
+.timeline-item-content.right-aligned::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 2px;
+    background-color: #ccc;
+    z-index: 1;
+}
+
+
+.left-content {
+    width: 100%;
+}
+.right-content {
+    width: 100%;
+}
+
+.company {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: var(--secondary-color);
+}
+
+.date {
+    color: #555;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.job-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
     color: var(--primary-color);
-    cursor: pointer;
-    z-index: 10;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    opacity: 1;
-    pointer-events: auto;
 }
 
-.timeline-scroll-arrow.left {
-    left: 20px;
-}
-
-.timeline-scroll-arrow.right {
-    right: 20px;
-}
-
-.timeline-scroll-arrow.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.timeline-scroll-arrow:hover {
-    transform: translateY(-50%) scale(1.1);
+.desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 
@@ -711,13 +715,13 @@ header .container {
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     width: 100%;
     margin: 0 auto;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .skill-item .skill-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 12px;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
     object-fit: contain;
     flex-shrink: 0;
 }
@@ -725,27 +729,27 @@ header .container {
 .skill-item span {
     font-weight: bold;
     color: var(--secondary-color);
-    font-size: 1.1em;
-    white-space: normal;
+    font-size: 1em;
+    white-space: nowrap;
+    flex-grow: 1;
 }
 
 .stars {
     display: flex;
     gap: 2px;
     flex-shrink: 0;
-    margin-left: 0;
-    flex-basis: 100%;
-    margin-top: 5px;
+    margin-left: 10px;
+    margin-top: 0;
 }
 
 .stars .fas.fa-star {
     color: var(--star-color);
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .stars .far.fa-star {
     color: var(--border-color);
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 
@@ -927,61 +931,6 @@ header .container {
     opacity: 0.9;
 }
 
-#contact-form {
-    max-width: 600px;
-    margin: 0 auto 40px auto;
-    background-color: var(--white);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    text-align: left;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: var(--secondary-color);
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    font-size: 1em;
-    color: var(--text-color);
-    background-color: var(--light-bg);
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-}
-
-#contact-form button {
-    width: auto;
-    min-width: 150px;
-    padding: 14px 30px;
-    font-size: 1.1em;
-}
-
-#form-status {
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    color: var(--secondary-color);
-}
-
 /* Social Links */
 .social-links {
     margin-top: 40px;
@@ -991,6 +940,7 @@ header .container {
     font-size: 2.5em;
     margin: 0 15px;
     transition: transform 0.3s ease;
+    color: var(--white);
 }
 
 .social-links a:hover {
@@ -1173,120 +1123,169 @@ footer {
         text-align: center;
     }
 
+    /* --- Timeline Mobile Adjustments --- */
+    .timeline-section {
+        padding: 40px 0;
+    }
+    .timeline-section h2 {
+        font-size: 2em;
+        margin-bottom: 2rem;
+    }
 
-    /* Timeline Mobile Adjustments */
-    .timeline-content-wrapper {
-        padding: 20px;
-        border-radius: 0;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    .timeline-wrapper {
+        max-width: 100%;
+        padding: 0 15px;
     }
 
     .timeline {
-        margin-top: 0;
-        align-items: flex-start;
+        display: flex; /* Stack entries vertically */
+        flex-direction: column;
+        position: relative;
+        padding-top: 0;
+        row-gap: 0;
     }
 
-    /* Vertical line for mobile */
     .timeline::before {
-        left: 20px;
-        top: 0;
-        width: 6px;
-        height: 100%;
-        transform: none;
-        width: auto;
+        left: 20px; /* Vertical line position */
+        transform: translateX(-50%);
     }
 
-    .timeline-item {
+    .entry {
+        display: flex; /* Flex container for content blocks and icon within one entry */
+        flex-direction: column; /* Stack children */
+        align-items: flex-start; /* Align content to the left */
+        margin-bottom: 2rem; /* Space between each complete timeline entry */
+        position: relative; /* For absolute positioning of the icon */
+        box-sizing: border-box;
         width: 100%;
-        max-width: none;
-        margin: 1.5rem 0;
-        padding: 0 0 0 50px;
-        flex: none;
-        align-items: flex-start;
-        min-height: auto;
+        text-align: left;
+        padding-bottom: 2rem; /* Add padding at the bottom of each entry for the line */
+        border-bottom: 1px solid #ddd; /* Horizontal line between entries */
     }
 
-    /* Reset alternating margins for vertical layout */
-    .timeline-item:nth-child(odd) .timeline-content,
-    .timeline-item:nth-child(even) .timeline-content {
-        margin-top: 0;
+    .entry:last-child {
+        border-bottom: none; /* No border after the last entry */
+        padding-bottom: 0; /* No extra padding after the last entry */
+    }
+
+    /* Hide the default desktop center column */
+    .timeline-center-column {
+        display: flex;
+    }
+
+    /* Position the dot-icon absolutely, over the line on mobile */
+    .dot-icon {
+        position: absolute;
+        left: 20px; /* Position to align with the main timeline line */
+        top: 0; /* Position at the top of the entry */
+        transform: translate(-50%, 0); /* Center on the line for X-axis only */
+        font-size: 14px;
+        width: 28px;
+        height: 28px;
+        z-index: 5; /* Ensure it's above the line */
+        background-color: white; /* Ensure background is white to cover line */
+        border: 3px solid #ccc; /* Maintain border */
+        border-radius: 50%; /* Keep round */
+        display: flex; /* Keep flex to center icon content */
+        justify-content: center;
+        align-items: center;
+        color: white; /* Icon color */
+    }
+
+    /* Style the content blocks on mobile */
+    .timeline-item-content {
+        width: 100%;
+        padding-top: 10px; /* Top padding */
+        padding-bottom: 10px; /* Bottom padding */
+        padding-left: 0 !important; /* Explicitly remove left padding */
+        padding-right: 0 !important; /* Explicitly remove right padding */
+        text-align: left !important;
+        margin-bottom: 8px; /* Reduced margin between stacked content boxes */
+        background-color: transparent; /* Always transparent */
+        box-shadow: none; /* Always no shadow */
+        transition: none; /* No transitions for hover effects */
+        margin-left: 50px; /* Shift content right to make space for the line/dot */
+        box-sizing: border-box;
+    }
+
+    /* Ensure content within left/right divs is left-aligned and has no extra padding/margin */
+    .timeline-item-content .left-content,
+    .timeline-item-content .right-content {
+        width: 100%;
+        padding: 0; /* Remove any padding */
+        margin: 0; /* Remove any margin */
+        text-align: left; /* Explicitly ensure left alignment */
+    }
+
+    .timeline-item-content .job-title,
+    .timeline-item-content .date,
+    .timeline-item-content .company,
+    .timeline-item-content .desc {
+        margin-bottom: 0; /* Remove all bottom margins */
+        line-height: 1.3; /* Tighten line spacing */
+        text-align: left; /* Ensure left alignment for individual text lines */
+    }
+
+    /* Remove the internal dashed line */
+    .entry .timeline-item-content.left-aligned {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    /* Remove bottom margin for the last content box within an entry */
+    .entry .timeline-item-content:last-of-type {
         margin-bottom: 0;
     }
 
-    /* Date styling for mobile (now inside content box) */
-    .timeline-date {
-        position: static;
-        transform: none;
-        margin-left: 0;
-        margin-bottom: 0.75rem;
-        align-self: flex-start;
+    /* Remove side-specific paddings/margins for mobile */
+    .timeline-item-content.left-aligned::after,
+    .timeline-item-content.right-aligned::before {
+        display: none; /* Hide connector lines on mobile */
     }
 
-    .timeline-content {
-        width: calc(100% - 1.5rem);
-        margin-top: 0;
-        align-items: flex-start;
-    }
-
-    .timeline-content h3 {
-        font-size: 1.25rem;
-    }
-    .timeline-content p {
-        font-size: 0.875rem;
-    }
-
-
-    /* Skills Section Mobile Adjustments */
+    /* --- Skills Section Mobile Adjustments --- */
     .skills-content-wrapper {
-        padding: 20px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        border-radius: 0;
+        padding: 40px 20px;
     }
     .skills-rating-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack into a single column */
+        gap: 15px;
     }
-
     .skill-item {
-        flex-direction: row;
-        justify-content: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 12px 15px;
     }
     .skill-item span {
-        margin-right: 10px;
+        white-space: normal;
+        font-size: 0.95em;
     }
-
+    .skill-item .skill-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
+    .stars {
+        margin-left: auto;
+        margin-top: 0;
+    }
     .platforms-languages-container {
         grid-template-columns: 1fr;
         gap: 20px;
-    }
-    .skill-category {
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-        margin-bottom: 10px;
+        padding-top: 20px;
     }
     .skill-category h4 {
-        white-space: normal;
+        font-size: 1.1em;
+    }
+    .skill-category .category-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
     }
     .category-list {
+        font-size: 1em;
         white-space: normal;
         text-align: center;
-    }
-
-    /* Portfolio Section Mobile Adjustments */
-    .portfolio-subsection {
-        margin-bottom: 40px;
-    }
-    .portfolio-subsection h3 {
-        font-size: 1.5em;
-        margin-bottom: 20px;
-    }
-    .portfolio-item {
-        padding: 20px;
-        margin-bottom: 20px;
-    }
-    .carousel-btn {
-        padding: 10px 5px;
-        font-size: 1.2em;
     }
 }
 
@@ -1297,48 +1296,128 @@ footer {
     h3 { font-size: 1.2em; }
 
     .hero.hero-banner-style {
-        min-height: 500px;
-        padding-top: 40px;
-        padding-bottom: 40px;
+        min-height: 450px;
+        padding-top: 30px;
+        padding-bottom: 30px;
     }
     .hero-banner-style .hero-content-wrapper.three-columns {
-        gap: 15px;
+        gap: 10px;
     }
     .profile-image-wrapper {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
     }
     .arrow-image-wrapper {
-        width: 80px;
-        height: 80px;
-        margin-bottom: -15px;
+        width: 70px;
+        height: 70px;
+        margin-bottom: -10px;
     }
     .hero-text-content h1 {
-        font-size: 1.6em;
+        font-size: 1.5em;
     }
     .hero-text-content .tagline {
         font-size: 1em;
     }
     .hero-text-content .tagline .sub-tagline {
-        font-size: 0.5em;
+        font-size: 0.55em;
+    }
+    .experience-text {
+        font-size: 0.9em;
+        margin-bottom: 10px;
     }
     .software-icons {
         justify-content: center;
-        gap: 8px;
-        margin-bottom: 0;
+        gap: 6px;
     }
     .software-icons img {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
     }
 
     /* Further refine about section for very small screens */
     .about-intro {
+        font-size: 0.85em;
+    }
+
+    /* Timeline specific adjustments for very small screens */
+    .timeline-section {
+        padding: 30px 0;
+    }
+    .timeline-section h2 {
+        font-size: 1.8em;
+        margin-bottom: 1.5rem;
+    }
+    .timeline-wrapper {
+        padding: 0 10px;
+    }
+    .timeline::before {
+        left: 15px;
+    }
+    .entry {
+        margin-bottom: 1.5rem;
+    }
+    .dot-icon {
+        left: 15px;
+        font-size: 12px;
+        width: 24px;
+        height: 24px;
+    }
+    .timeline-item-content {
+        padding-top: 8px; /* Top padding */
+        padding-bottom: 8px; /* Bottom padding */
+        padding-left: 0 !important; /* Explicitly remove left padding */
+        padding-right: 0 !important; /* Explicitly remove right padding */
+        margin-bottom: 6px; /* Further reduced margin */
+        margin-left: 40px; /* Adjusted margin for smaller dot */
+    }
+    .company { font-size: 0.95rem; } /* Slightly reduced font size for company */
+    .job-title { font-size: 0.85em; } /* Slightly reduced font size for job title */
+    .date { font-size: 0.7rem; }
+    .desc { font-size: 0.75em; }
+
+    .timeline-item-content .job-title,
+    .timeline-item-content .date,
+    .timeline-item-content .company,
+    .timeline-item-content .desc {
+        line-height: 1.2; /* Even tighter line height */
+    }
+
+    /* Skills section on very small screens */
+    .skills-content-wrapper {
+        padding: 30px 15px;
+    }
+    .skill-item span {
+        font-size: 0.9em;
+    }
+    .skills-rating-grid {
+        gap: 10px;
+    }
+    .platforms-languages-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .skill-category h4 {
+        font-size: 1em;
+    }
+    .skill-category .category-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
+    }
+    .category-list {
         font-size: 0.9em;
     }
 
-    /* Contact form adjustments for very small screens */
-    #contact-form {
-        padding: 20px;
+    /* Contact section adjustments */
+    .contact p {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+    .social-links a {
+        font-size: 2em;
+        margin: 0 10px;
+    }
+    .contact-info {
+        font-size: 1em;
     }
 }
