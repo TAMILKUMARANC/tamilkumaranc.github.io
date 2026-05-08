@@ -159,9 +159,12 @@ header .container {
     color: var(--secondary-color);
 }
 
-/* Hero Section (Three-Column Top Banner Style) */
+/* Hero Section (Three-Column Top Banner Style with Background Image) */
 .hero.hero-banner-style {
-    background: radial-gradient(circle at center, var(--banner-dark-yellow) 0%, var(--banner-light-yellow) 50%);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/banner-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     padding: 0;
     margin: 0;
     text-align: center;
@@ -173,6 +176,7 @@ header .container {
     min-height: 400px;
     overflow: hidden;
     border-bottom: 2px solid var(--black-text);
+    position: relative;
 }
 
 .hero-banner-style .container {
@@ -180,6 +184,8 @@ header .container {
     height: 100%;
     display: flex;
     align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-banner-style .hero-content-wrapper.three-columns {
@@ -241,6 +247,7 @@ header .container {
 }
 .arrow-image-wrapper img {
     object-fit: contain;
+    filter: drop-shadow(0 2px 5px rgba(255, 255, 255, 0.3));
 }
 
 .profile-image-wrapper {
@@ -252,7 +259,7 @@ header .container {
     padding: 0;
     background-color: transparent;
     border: 5px solid var(--white);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     flex-shrink: 0;
     box-sizing: border-box;
     aspect-ratio: 1 / 1;
@@ -266,25 +273,32 @@ header .container {
 }
 
 .hero-text-content {
-    color: var(--black-text);
+    color: var(--white);
     text-align: center;
     margin-top: 0;
     width: 100%;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .hero-text-content h1 {
     font-size: 2.8em;
-    color: var(--black-text);
+    color: var(--white);
     margin-bottom: 5px;
     line-height: 1.1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.hero-text-content h1 .highlight {
+    color: var(--banner-dark-yellow);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .hero-text-content .tagline {
     font-size: 1.6em;
     font-weight: bold;
-    color: var(--black-text);
+    color: var(--white);
     margin-bottom: 0;
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
     line-height: 1.2;
 }
 
@@ -293,15 +307,16 @@ header .container {
     font-size: 0.65em;
     font-weight: normal;
     margin-top: 5px;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .hero-text-content .experience-text {
     font-size: 1.1em;
     font-weight: bold;
-    color: var(--black-text);
+    color: var(--white);
     margin-top: 0;
     margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 .separator-line {
@@ -309,6 +324,7 @@ header .container {
     height: 2px;
     background-color: var(--white);
     margin: 5px auto;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .software-icons {
@@ -323,16 +339,20 @@ header .container {
     width: 45px;
     height: 45px;
     object-fit: contain;
-    background-color: transparent;
-    padding: 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
     z-index: 1;
+    backdrop-filter: blur(10px);
 }
 
 .software-icons img:hover {
     transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 
@@ -999,425 +1019,114 @@ footer {
     .nav-links a {
         display: block;
         padding: 15px 0;
-        color: var(--secondary-color);
-    }
-
-    .nav-links a::after {
-        display: none;
     }
 
     .menu-toggle {
         display: block;
     }
 
-    .logo img {
-        height: 40px;
-    }
-
-    /* Hero Banner Mobile Adjustments */
     .hero.hero-banner-style {
-        padding: 0;
-        min-height: auto;
-        height: auto;
-        border-bottom: 2px solid var(--black-text);
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-    .hero-banner-style .container {
-        padding: 0 15px;
-        height: auto;
-    }
-    .hero-banner-style .hero-content-wrapper.three-columns {
-        flex-direction: column;
-        padding: 0;
-        gap: 20px;
-        height: auto;
-    }
-
-    .hero-column {
-        width: 100%;
-        max-width: 300px;
-        padding: 0;
-        justify-content: center;
-        align-items: center;
-        min-height: auto;
-        height: auto;
+        height: 350px;
+        min-height: 350px;
     }
 
     .hero-column.col-1,
-    .hero-column.col-2,
     .hero-column.col-3 {
-        flex: none;
-        width: 100%;
+        display: none;
     }
 
-    .profile-image-wrapper {
-        width: 150px;
-        height: 150px;
-        padding: 5px;
-        aspect-ratio: 1 / 1;
-        border: 5px solid var(--white);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        border-radius: 0;
-    }
-    .arrow-image-wrapper {
-        width: 100px;
-        height: 100px;
-        margin-bottom: -15px;
+    .hero-column.col-2 {
+        flex: 0 0 100%;
     }
 
     .hero-text-content h1 {
         font-size: 2em;
-        margin-top: 10px;
     }
+
     .hero-text-content .tagline {
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
-    .hero-text-content .tagline .sub-tagline {
-        font-size: 0.6em;
-        margin-top: 3px;
-    }
-    .hero-text-content .experience-text {
-        font-size: 1em;
-        margin-bottom: 15px;
-    }
+
     .software-icons {
-        justify-content: center;
-        gap: 8px;
-        margin-bottom: 0;
+        gap: 10px;
     }
+
     .software-icons img {
         width: 35px;
         height: 35px;
-        background-color: transparent;
-        padding: 0;
+        padding: 6px;
     }
 
-    /* About Section Mobile Adjustments */
-    .about-section {
-        min-height: auto;
-        height: auto;
-    }
-    .about-content-wrapper.two-columns {
-        flex-direction: column;
-        min-height: auto;
-        box-shadow: none;
-        border-radius: 0;
-        gap: 0;
-    }
-    .about-column {
-        flex: 1 1 100%;
-        padding: 20px 15px;
-    }
-    .about-column.col-1 {
-        order: 2;
-        background-color: transparent;
-        padding-top: 0;
-    }
-    .about-column.col-2 {
-        order: 1;
-        padding-bottom: 0;
-    }
-    .about-intro {
-        font-size: 0.95em;
-        text-align: center;
-    }
-
-    /* --- Timeline Mobile Adjustments --- */
-    .timeline-section {
-        padding: 40px 0;
-    }
-    .timeline-section h2 {
-        font-size: 2em;
-        margin-bottom: 2rem;
-    }
-
-    .timeline-wrapper {
-        max-width: 100%;
-        padding: 0 15px;
-    }
-
-    .timeline {
-        display: flex; /* Stack entries vertically */
-        flex-direction: column;
-        position: relative;
-        padding-top: 0;
-        row-gap: 0;
-    }
-
-    .timeline::before {
-        left: 20px; /* Vertical line position */
-        transform: translateX(-50%);
-    }
-
-    .entry {
-        display: flex; /* Flex container for content blocks and icon within one entry */
-        flex-direction: column; /* Stack children */
-        align-items: flex-start; /* Align content to the left */
-        margin-bottom: 2rem; /* Space between each complete timeline entry */
-        position: relative; /* For absolute positioning of the icon */
-        box-sizing: border-box;
-        width: 100%;
-        text-align: left;
-        padding-bottom: 2rem; /* Add padding at the bottom of each entry for the line */
-        border-bottom: 1px solid #ddd; /* Horizontal line between entries */
-    }
-
-    .entry:last-child {
-        border-bottom: none; /* No border after the last entry */
-        padding-bottom: 0; /* No extra padding after the last entry */
-    }
-
-    /* Hide the default desktop center column */
-    .timeline-center-column {
-        display: flex;
-    }
-
-    /* Position the dot-icon absolutely, over the line on mobile */
-    .dot-icon {
-        position: absolute;
-        left: 20px; /* Position to align with the main timeline line */
-        top: 0; /* Position at the top of the entry */
-        transform: translate(-50%, 0); /* Center on the line for X-axis only */
-        font-size: 14px;
-        width: 28px;
-        height: 28px;
-        z-index: 5; /* Ensure it's above the line */
-        background-color: white; /* Ensure background is white to cover line */
-        border: 3px solid #ccc; /* Maintain border */
-        border-radius: 50%; /* Keep round */
-        display: flex; /* Keep flex to center icon content */
-        justify-content: center;
-        align-items: center;
-        color: white; /* Icon color */
-    }
-
-    /* Style the content blocks on mobile */
-    .timeline-item-content {
-        width: 100%;
-        padding-top: 10px; /* Top padding */
-        padding-bottom: 10px; /* Bottom padding */
-        padding-left: 0 !important; /* Explicitly remove left padding */
-        padding-right: 0 !important; /* Explicitly remove right padding */
-        text-align: left !important;
-        margin-bottom: 8px; /* Reduced margin between stacked content boxes */
-        background-color: transparent; /* Always transparent */
-        box-shadow: none; /* Always no shadow */
-        transition: none; /* No transitions for hover effects */
-        margin-left: 50px; /* Shift content right to make space for the line/dot */
-        box-sizing: border-box;
-    }
-
-    /* Ensure content within left/right divs is left-aligned and has no extra padding/margin */
-    .timeline-item-content .left-content,
-    .timeline-item-content .right-content {
-        width: 100%;
-        padding: 0; /* Remove any padding */
-        margin: 0; /* Remove any margin */
-        text-align: left; /* Explicitly ensure left alignment */
-    }
-
-    .timeline-item-content .job-title,
-    .timeline-item-content .date,
-    .timeline-item-content .company,
-    .timeline-item-content .desc {
-        margin-bottom: 0; /* Remove all bottom margins */
-        line-height: 1.3; /* Tighten line spacing */
-        text-align: left; /* Ensure left alignment for individual text lines */
-    }
-
-    /* Remove the internal dashed line */
-    .entry .timeline-item-content.left-aligned {
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-
-    /* Remove bottom margin for the last content box within an entry */
-    .entry .timeline-item-content:last-of-type {
-        margin-bottom: 0;
-    }
-
-    /* Remove side-specific paddings/margins for mobile */
-    .timeline-item-content.left-aligned::after,
-    .timeline-item-content.right-aligned::before {
-        display: none; /* Hide connector lines on mobile */
-    }
-
-    /* --- Skills Section Mobile Adjustments --- */
     .skills-content-wrapper {
         padding: 40px 20px;
     }
+
     .skills-rating-grid {
-        grid-template-columns: 1fr; /* Stack into a single column */
-        gap: 15px;
+        grid-template-columns: 1fr;
+        gap: 15px 0;
     }
-    .skill-item {
-        justify-content: space-between;
-        flex-wrap: wrap;
-        padding: 12px 15px;
-    }
-    .skill-item span {
-        white-space: normal;
-        font-size: 0.95em;
-    }
-    .skill-item .skill-icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 8px;
-    }
-    .stars {
-        margin-left: auto;
-        margin-top: 0;
-    }
+
     .platforms-languages-container {
         grid-template-columns: 1fr;
         gap: 20px;
-        padding-top: 20px;
-    }
-    .skill-category h4 {
-        font-size: 1.1em;
-    }
-    .skill-category .category-icon {
-        width: 24px;
-        height: 24px;
-        margin-right: 8px;
-    }
-    .category-list {
-        font-size: 1em;
-        white-space: normal;
-        text-align: center;
-    }
-}
-
-/* Smaller mobile screens (e.g., iPhone SE, older phones) */
-@media (max-width: 480px) {
-    h1 { font-size: 1.8em; }
-    h2 { font-size: 1.5em; }
-    h3 { font-size: 1.2em; }
-
-    .hero.hero-banner-style {
-        min-height: 450px;
-        padding-top: 30px;
-        padding-bottom: 30px;
-    }
-    .hero-banner-style .hero-content-wrapper.three-columns {
-        gap: 10px;
-    }
-    .profile-image-wrapper {
-        width: 100px;
-        height: 100px;
-    }
-    .arrow-image-wrapper {
-        width: 70px;
-        height: 70px;
-        margin-bottom: -10px;
-    }
-    .hero-text-content h1 {
-        font-size: 1.5em;
-    }
-    .hero-text-content .tagline {
-        font-size: 1em;
-    }
-    .hero-text-content .tagline .sub-tagline {
-        font-size: 0.55em;
-    }
-    .experience-text {
-        font-size: 0.9em;
-        margin-bottom: 10px;
-    }
-    .software-icons {
-        justify-content: center;
-        gap: 6px;
-    }
-    .software-icons img {
-        width: 28px;
-        height: 28px;
     }
 
-    /* Further refine about section for very small screens */
-    .about-intro {
-        font-size: 0.85em;
-    }
-
-    /* Timeline specific adjustments for very small screens */
-    .timeline-section {
-        padding: 30px 0;
-    }
-    .timeline-section h2 {
-        font-size: 1.8em;
-        margin-bottom: 1.5rem;
-    }
-    .timeline-wrapper {
-        padding: 0 10px;
-    }
-    .timeline::before {
-        left: 15px;
-    }
-    .entry {
-        margin-bottom: 1.5rem;
-    }
-    .dot-icon {
-        left: 15px;
-        font-size: 12px;
-        width: 24px;
-        height: 24px;
-    }
-    .timeline-item-content {
-        padding-top: 8px; /* Top padding */
-        padding-bottom: 8px; /* Bottom padding */
-        padding-left: 0 !important; /* Explicitly remove left padding */
-        padding-right: 0 !important; /* Explicitly remove right padding */
-        margin-bottom: 6px; /* Further reduced margin */
-        margin-left: 40px; /* Adjusted margin for smaller dot */
-    }
-    .company { font-size: 0.95rem; } /* Slightly reduced font size for company */
-    .job-title { font-size: 0.85em; } /* Slightly reduced font size for job title */
-    .date { font-size: 0.7rem; }
-    .desc { font-size: 0.75em; }
-
-    .timeline-item-content .job-title,
-    .timeline-item-content .date,
-    .timeline-item-content .company,
-    .timeline-item-content .desc {
-        line-height: 1.2; /* Even tighter line height */
-    }
-
-    /* Skills section on very small screens */
-    .skills-content-wrapper {
-        padding: 30px 15px;
-    }
-    .skill-item span {
-        font-size: 0.9em;
-    }
-    .skills-rating-grid {
-        gap: 10px;
-    }
-    .platforms-languages-container {
+    .timeline {
         grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    .skill-category h4 {
-        font-size: 1em;
-    }
-    .skill-category .category-icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 6px;
-    }
-    .category-list {
-        font-size: 0.9em;
     }
 
-    /* Contact section adjustments */
-    .contact p {
-        font-size: 1em;
-        margin-bottom: 20px;
+    .timeline::before {
+        display: none;
     }
-    .social-links a {
-        font-size: 2em;
-        margin: 0 10px;
+
+    .timeline-item-content.left-aligned,
+    .timeline-item-content.right-aligned {
+        grid-column: 1 !important;
+        text-align: center;
+        padding: 15px !important;
     }
-    .contact-info {
-        font-size: 1em;
+
+    .timeline-item-content.left-aligned::after,
+    .timeline-item-content.right-aligned::before {
+        display: none;
+    }
+
+    .timeline-center-column {
+        grid-column: 1;
+        margin: 20px 0;
+    }
+
+    .dot-icon {
+        position: relative;
+        transform: none;
+        margin: 0;
+    }
+
+    @media (max-width: 480px) {
+        .hero.hero-banner-style {
+            height: 300px;
+            min-height: 300px;
+        }
+
+        .hero-text-content h1 {
+            font-size: 1.5em;
+        }
+
+        .hero-text-content .tagline {
+            font-size: 0.9em;
+        }
+
+        .software-icons {
+            gap: 8px;
+        }
+
+        .software-icons img {
+            width: 30px;
+            height: 30px;
+            padding: 5px;
+        }
+
+        h1 { font-size: 2em; }
+        h2 { font-size: 1.8em; }
     }
 }
